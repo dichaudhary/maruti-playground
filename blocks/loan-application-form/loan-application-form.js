@@ -125,6 +125,7 @@ export default async function decorate(block) {
 
     block.dataset.renderAll = 'true';
     block.dataset.activeRoute = activeRoute;
+
     block.addEventListener('navigate-to-route', ({ detail }) => {
       const { route: newRoute } = detail;
       if (newRoute && newRoute !== activeRoute) {
