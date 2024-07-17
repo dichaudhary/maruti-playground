@@ -254,7 +254,7 @@
         "required": true
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "disclaimer_text",
         "label": "Disclaimer",
         "required": true
