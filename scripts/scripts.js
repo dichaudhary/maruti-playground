@@ -71,7 +71,7 @@ function buildMultiStepForms(main) {
       const firstStep = formSection.querySelector(selector);
       const previousElement = firstStep.previousElementSibling;
       const className = selector.substring(1);
-      const blockName = className.substring(0, selector.length - 5);
+      const blockName = className.substring(0, selector.length - 6);
       // wrap all consecutive steps in a new block
       const steps = [];
       let step = firstStep;
