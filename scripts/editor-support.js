@@ -105,7 +105,7 @@ function handleSelection(event) {
     const element = document.querySelector(`[data-aue-resource="${resource}"]`);
     const block = element.parentElement?.closest('.block') || element?.closest('.block');
 
-    if (block.dataset.activeRoute) {
+    if (block?.dataset.activeRoute) {
       // if the block does some routing we notify it about the new route based on the selection
       // the children of the block are the containers for the route, the first class name
       // the route name
