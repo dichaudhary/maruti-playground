@@ -1,3 +1,7 @@
 .loan-application-form-container {
   background-color: lightgray;
 }
+
+.loan-application-form > div:not(.active) {
+  display: none;
+}

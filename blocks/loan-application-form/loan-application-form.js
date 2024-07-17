@@ -18,10 +18,11 @@ export function hnodeAs(node, tagName, props = {}) {
   return copy;
 }
 
+function getAttributes(element) {
+  return Object.fromEntries([...element.attributes].map((attr) => [attr.name, attr.value]));
+}
+
 export function hnode(nodes) {
-  const getAttributes = (element) => Object.fromEntries(
-    [...element.attributes].map((attr) => [attr.name, attr.value]),
-  );
   const convert = (node) => {
     if (node) {
       if (node.nodeType === 3) {
@@ -54,7 +55,9 @@ export const LoanApplicationFormContext = createContext();
 export default async function decorate(block) {
   const parsedRoutes = Object.entries(routes).reduce((acc, [name, component]) => {
     let config = block.querySelector(`.${name}`);
+    let attrs = {};
     if (config) {
+      attrs = getAttributes(config);
       config = component.parse(config);
       config = {
         ...component.defaults,
@@ -66,28 +69,53 @@ export default async function decorate(block) {
     } else {
       config = component.defaults;
     }
-    return { ...acc, [name]: config };
+    return { ...acc, [name]: { config, attrs } };
   }, {});
 
   function LoanApplicationForm() {
     const [firstRoute] = Object.keys(routes);
     // TODO: restore state from localStorage
     const [activeRoute, setActiveRoute] = useState(firstRoute);
-    const Component = routes[activeRoute];
-    const parsedRoute = parsedRoutes[activeRoute];
     const context = {
       activeRoute,
       setActiveRoute,
     };
 
+    block.dataset.renderAll = 'true';
+    block.dataset.activeRoute = activeRoute;
     block.addEventListener('navigate-to-route', ({ detail }) => {
       const { route: newRoute } = detail;
-      if (newRoute && newRoute !== activeRoute) setActiveRoute(newRoute);
+      if (newRoute && newRoute !== activeRoute) {
+        setActiveRoute(newRoute);
+        block.dataset.activeRoute = newRoute;
+      }
     });
+
+    let formContent;
+    if (block.dataset.renderAll === 'true') {
+      // for authoring we have to render all the routes and show/hide them with CSS
+      formContent = Object.entries(routes).map(([name, Component]) => {
+        const { attrs, config } = parsedRoutes[name];
+        return html`
+          <div ...${attrs} class="${name} ${name === activeRoute ? 'active' : ''}" >
+            <${Component} config=${config} />
+          </div>
+        `;
+      });
+    } else {
+      // otherwise we only render the active route
+      const Component = routes[activeRoute];
+      const { attrs, config } = parsedRoutes[activeRoute];
+      formContent = html`
+        <div ...${attrs} class="${activeRoute} active">
+          <${Component} config=${config} />
+        </div>
+        `;
+    }
 
     return html`
       <${LoanApplicationFormContext.Provider} value=${context}>
-        <${Component} config=${parsedRoute}/>
+        ${formContent}
       </${LoanApplicationFormContext.Provider}>
     `;
   }
