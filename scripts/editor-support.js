@@ -23,8 +23,17 @@ async function applyChanges(event) {
   const { content } = updates[0];
   if (!content) return false;
 
-  const parsedUpdate = new DOMParser().parseFromString(content, 'text/html');
   const element = document.querySelector(`[data-aue-resource="${resource}"]`);
+
+  if (element && element.matches('.dynamic-block')) {
+    // dynamic blocks manage their updates themself, dispatch an event to it
+    // this is used to update the state of clientside rendered stateful applications like
+    // multi step forms
+    element.dispatchEvent(new CustomEvent('apply-update', { detail: content }));
+    return true;
+  }
+
+  const parsedUpdate = new DOMParser().parseFromString(content, 'text/html');
 
   if (element) {
     if (element.matches('main')) {

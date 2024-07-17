@@ -64,7 +64,7 @@ async function loadFonts() {
 
 function buildMultiStepForms(main) {
   [
-    '.loan-application-form-step'
+    '.loan-application-form-step',
   ].forEach((selector) => {
     // multi step forms are sections that have a least one step
     main.querySelectorAll(`:scope > div:has(${selector})`).forEach((formSection) => {

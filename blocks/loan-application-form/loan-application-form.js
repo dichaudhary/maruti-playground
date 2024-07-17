@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
@@ -7,7 +8,7 @@ import {
   createContext,
   cloneElement,
 } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 import RequestOtpStep from './request-otp-step.js';
 import RestorePreviousJourenyStep from './restore-previous-journey-step.js';
@@ -52,34 +53,75 @@ const routes = {
 
 export const LoanApplicationFormContext = createContext();
 
+function parseConfig(block, Component) {
+  let config = block;
+  let attrs = {};
+  if (config) {
+    attrs = getAttributes(config);
+    config = Component.parse(config);
+    config = {
+      ...Component.defaults,
+      ...Object.entries(config)
+        // the entries are key => node pairs
+        // adapt the nodes to hnodes
+        .map(([key, value]) => [key, hnode(value)])
+        // filter out any falsy values
+        .filter(([, value]) => value)
+        // convert the array back to an object
+        .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {}),
+    };
+  } else {
+    config = Component.defaults;
+  }
+
+  return { attrs, config };
+}
+
+/**
+ * A higher level component that wraps the given child into a <div> that is a dynamic-block.
+ * The dynamic-block receives updates in the editor from the editor-support script and can
+ * parse them to apply them selectively. To do that the block keeps track of the applied
+ * configuration and attributes.
+ */
+export function ConfiguredFormStep({ props, children: renderer }) {
+  const { config, attrs, name, isActive } = props;
+  const [appliedAttrs, setAppliedAttrs] = useState(attrs);
+  const [appliedConfig, setAppliedConfig] = useState(config);
+  const ref = useRef();
+  const classList = [name, 'dynamic-block'];
+  if (isActive) classList.push('active');
+
+  useEffect(() => {
+    // listen for updates, parse them using the same function used in decorate() and update
+    // the state accordingly
+    ref.current.addEventListener('apply-update', ({ detail: update }) => {
+      const parsedUpdate = new DOMParser().parseFromString(update, 'text/html');
+      const configBlock = parsedUpdate.querySelector('.request-otp-step');
+      const { attrs: newAttrs, config: newConfig } = parseConfig(configBlock, routes[name]);
+      setAppliedAttrs(newAttrs);
+      setAppliedConfig(newConfig);
+    });
+  }, []);
+
+  return html`
+    <div ...${appliedAttrs} class="${classList.join(' ')}" ref=${ref}>
+      ${renderer({ config: appliedConfig })}
+    </div>
+  `;
+}
+
 export default async function decorate(block) {
-  const parsedRoutes = Object.entries(routes).reduce((acc, [name, component]) => {
-    let config = block.querySelector(`.${name}`);
-    let attrs = {};
-    if (config) {
-      attrs = getAttributes(config);
-      config = component.parse(config);
-      config = {
-        ...component.defaults,
-        ...Object.entries(config)
-          .map(([key, value]) => [key, hnode(value)])
-          .filter(([, value]) => value)
-          .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {}),
-      };
-    } else {
-      config = component.defaults;
-    }
-    return { ...acc, [name]: { config, attrs } };
+  const parsedRoutes = Object.entries(routes).reduce((acc, [name, Component]) => {
+    const configBlock = block.querySelector(`.${name}`);
+    const parsed = parseConfig(configBlock, Component);
+    return { ...acc, [name]: parsed };
   }, {});
 
   function LoanApplicationForm() {
     const [firstRoute] = Object.keys(routes);
     // TODO: restore state from localStorage
     const [activeRoute, setActiveRoute] = useState(firstRoute);
-    const context = {
-      activeRoute,
-      setActiveRoute,
-    };
+    const context = { activeRoute, setActiveRoute };
 
     block.dataset.renderAll = 'true';
     block.dataset.activeRoute = activeRoute;
@@ -97,9 +139,9 @@ export default async function decorate(block) {
       formContent = Object.entries(routes).map(([name, Component]) => {
         const { attrs, config } = parsedRoutes[name];
         return html`
-          <div ...${attrs} class="${name} ${name === activeRoute ? 'active' : ''}" >
-            <${Component} config=${config} />
-          </div>
+          <${ConfiguredFormStep} props=${{ config, attrs, name, isActive: name === activeRoute }}>
+            ${(props) => html`<${Component} ...${props}/>`}
+          </${ConfiguredFormStep}>
         `;
       });
     } else {
@@ -107,10 +149,10 @@ export default async function decorate(block) {
       const Component = routes[activeRoute];
       const { attrs, config } = parsedRoutes[activeRoute];
       formContent = html`
-        <div ...${attrs} class="${activeRoute} active">
-          <${Component} config=${config} />
-        </div>
-        `;
+        <${ConfiguredFormStep} props=${{ config, attrs, name: activeRoute, isActive: true }}>
+          ${(props) => html`<${Component} ...${props}/>`}
+        </${ConfiguredFormStep}>
+      `;
     }
 
     return html`
