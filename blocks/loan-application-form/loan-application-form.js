@@ -12,6 +12,7 @@ import { useState, useRef, useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 import RequestOtpStep from './request-otp-step.js';
 import RestorePreviousJourenyStep from './restore-previous-journey-step.js';
+import { wrapTextNodes } from '../../scripts/aem.js';
 
 export function hnodeAs(node, tagName, props = {}) {
   const copy = cloneElement(node, props);
@@ -97,6 +98,7 @@ export function ConfiguredFormStep({ props, children: renderer }) {
     ref.current.addEventListener('apply-update', ({ detail: update }) => {
       const parsedUpdate = new DOMParser().parseFromString(update, 'text/html');
       const configBlock = parsedUpdate.querySelector('.request-otp-step');
+      wrapTextNodes(configBlock);
       const { attrs: newAttrs, config: newConfig } = parseConfig(configBlock, routes[name]);
       setAppliedAttrs(newAttrs);
       setAppliedConfig(newConfig);
@@ -126,6 +128,7 @@ export default async function decorate(block) {
     block.dataset.renderAll = 'true';
     block.dataset.activeRoute = activeRoute;
 
+    // listen for navigation triggered from the outside, e.g. the editor
     block.addEventListener('navigate-to-route', ({ detail }) => {
       const { route: newRoute } = detail;
       if (newRoute && newRoute !== activeRoute) {
