@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "loan-application-form"
     ]
   },
   {
@@ -34,6 +35,15 @@
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "loan-application-form",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
     ]
   }
 ]

@@ -185,5 +185,86 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "laf-request-otp-step",
+    "fields": [
+      {
+        "component": "text",
+        "name": "options_customerJourenyLabel",
+        "label": "Customer Journey Label",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "options_dealerJourenyLabel",
+        "label": "Dealer Journey Label",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "content_description",
+        "label": "Description",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctas_submit",
+        "label": "Submit Button",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "laf-restore-previous-journey-step",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "content_description",
+        "label": "Description",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctas_yes",
+        "label": "Resume Button",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctas_no",
+        "label": "Restart Button",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "laf-user-basic-details-step",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "intro_text",
+        "label": "Introduction",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "guidance_text",
+        "label": "Guidance",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "disclaimer_text",
+        "label": "Disclaimer",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctas_submit",
+        "label": "Submit Button",
+        "required": true
+      }
+    ]
   }
 ]
