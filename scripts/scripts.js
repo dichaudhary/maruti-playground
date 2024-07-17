@@ -10,6 +10,8 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  wrapTextNodes,
+  buildBlock,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -60,13 +62,42 @@ async function loadFonts() {
   }
 }
 
+function buildMultiStepForms(main) {
+  [
+    '.loan-application-form-step'
+  ].forEach((selector) => {
+    // multi step forms are sections that have a least one step
+    main.querySelectorAll(`:scope > div:has(${selector})`).forEach((formSection) => {
+      const firstStep = formSection.querySelector(selector);
+      const previousElement = firstStep.previousElementSibling;
+      const className = selector.substring(1);
+      const blockName = className.substring(0, selector.length - 5);
+      // wrap all consecutive steps in a new block
+      const steps = [];
+      let step = firstStep;
+      do {
+        step.classList.remove(className);
+        wrapTextNodes(step);
+        steps.push([step]);
+        step = step.nextElementSibling;
+      } while (step && step.matches(selector));
+      // remove any remaining out-of-order steps
+      formSection.querySelectorAll(selector).forEach((s) => s.remove());
+      // create a new block and replace the first step with it
+      const block = buildBlock(blockName, steps);
+      if (previousElement) previousElement.after(block);
+      else formSection.prepend(block);
+    });
+  });
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks() {
+function buildAutoBlocks(main) {
   try {
-    // TODO: add auto block, if needed
+    buildMultiStepForms(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

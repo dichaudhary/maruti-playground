@@ -85,19 +85,19 @@
                     "sling:resourceType": "core/franklin/components/block/v1/block",
                     "name": "Request OTP Step",
                     "model": "laf-request-otp-step",
-                    "classes": "laf-request-otp-step"
+                    "classes": "loan-application-form-step"
                   },
                   "step2": {
                     "sling:resourceType": "core/franklin/components/block/v1/block",
                     "name": "Restore Previous Journey Step",
                     "model": "laf-restore-previous-journey-step",
-                    "classes": "laf-restore-previous-journey-step"
+                    "classes": "loan-application-form-step"
                   },
                   "step3": {
                     "sling:resourceType": "core/franklin/components/block/v1/block",
                     "name": "Basic User Details Step",
                     "model": "laf-user-basic-details-step",
-                    "classes": "laf-user-basic-details-step"
+                    "classes": "loan-application-form-step"
                   }
                 }
               }
