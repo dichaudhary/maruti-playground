@@ -38,7 +38,7 @@
                 "template": {
                   "name": "Image",
                   "model": "image",
-                  "image": "/content/dam/red-car.png",
+                  "image": "/content/dam/aem-xwalk-test-harsh/content-at-scale.png",
                   "imageAlt": "Sample Image"
                 }
               }
