@@ -50,7 +50,7 @@
   {
     "id": "image-carousel",
     "components": [
-      "image-item"
+      "image"
     ]
   }
 
