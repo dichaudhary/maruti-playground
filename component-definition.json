@@ -37,7 +37,9 @@
                 "resourceType": "core/franklin/components/image/v1/image",
                 "template": {
                   "name": "Image",
-                  "model": "image"
+                  "model": "image",
+                  "image": "/content/dam/red-car.png",
+                  "imageAlt": "Sample Image"
                 }
               }
             }
