@@ -28,7 +28,8 @@
       "title",
       "hero",
       "cards",
-      "columns"
+      "columns",
+      "image-carousel"
     ]
   },
   {
@@ -45,5 +46,12 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "image-carousel",
+    "components": [
+      "image-item"
+    ]
   }
+
 ]
