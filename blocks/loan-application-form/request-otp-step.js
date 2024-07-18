@@ -45,7 +45,7 @@ export default class RequestOtpStep extends Component {
             <input type="radio" id="dealer-journey" name="journey-type" value="dealer" />
             ${hnodeAs(dealerOption, 'label', { for: 'dealer-journey' })}
           </div>
-        </fieldset>
+        </div>
         <div class="request-otp-step-description">
           ${description}
         </div>
@@ -54,7 +54,7 @@ export default class RequestOtpStep extends Component {
           <button type="submit">
             ${hnodeAs(button, 'span')}
           </button>
-        </fieldset>
+        </div>
       </form>
     `;
   }

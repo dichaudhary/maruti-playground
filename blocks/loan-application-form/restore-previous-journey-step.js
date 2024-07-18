@@ -30,7 +30,7 @@ export default class RestorePreviousJourenyStep extends Component {
       <form>
         <div class="restore-previous-journey-step-description">
           ${description}
-        </fieldset>
+        </div>
         <div class="restore-previous-journey-step-buttons">
           <button type="submit" value="yes">
             ${hnodeAs(yesButton, 'span')}
@@ -38,7 +38,7 @@ export default class RestorePreviousJourenyStep extends Component {
           <button type="submit" value="no">
             ${hnodeAs(noButton, 'span')}
           </button>
-        </fieldset>
+        </div>
       </form>
     `;
   }

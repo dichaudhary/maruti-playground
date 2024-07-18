@@ -10,9 +10,10 @@ import {
 } from 'preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
+import { wrapTextNodes } from '../../scripts/aem.js';
 import RequestOtpStep from './request-otp-step.js';
 import RestorePreviousJourenyStep from './restore-previous-journey-step.js';
-import { wrapTextNodes } from '../../scripts/aem.js';
+import BasicUserDetailsStep from './basic-user-details-step.js';
 
 export function hnodeAs(node, tagName, props = {}) {
   const copy = cloneElement(node, props);
@@ -50,6 +51,7 @@ export function hnode(nodes) {
 const routes = {
   'request-otp-step': RequestOtpStep,
   'restore-previous-journey-step': RestorePreviousJourenyStep,
+  'basic-user-details-step': BasicUserDetailsStep,
 };
 
 export const LoanApplicationFormContext = createContext();
@@ -97,7 +99,7 @@ export function ConfiguredFormStep({ props, children: renderer }) {
     // the state accordingly
     ref.current.addEventListener('apply-update', ({ detail: update }) => {
       const parsedUpdate = new DOMParser().parseFromString(update, 'text/html');
-      const configBlock = parsedUpdate.querySelector('.request-otp-step');
+      const configBlock = parsedUpdate.querySelector(`.${name}`);
       wrapTextNodes(configBlock);
       const { attrs: newAttrs, config: newConfig } = parseConfig(configBlock, routes[name]);
       setAppliedAttrs(newAttrs);
