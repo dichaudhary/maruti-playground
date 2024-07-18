@@ -3,7 +3,9 @@
     "id": "main",
     "components": [
       "section",
-      "loan-application-form"
+      "loan-application-form",
+      "image-carousel"
+
     ]
   },
   {
@@ -28,8 +30,7 @@
       "title",
       "hero",
       "cards",
-      "columns",
-      "image-carousel"
+      "columns"
     ]
   },
   {
