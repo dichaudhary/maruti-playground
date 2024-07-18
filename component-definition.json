@@ -35,7 +35,10 @@
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/image/v1/image",
-                "template": {}
+                "template": {
+                  "name": "Image Item",
+                  "model": "image"
+                }
               }
             }
           }
