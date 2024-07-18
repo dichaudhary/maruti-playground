@@ -36,7 +36,7 @@
               "page": {
                 "resourceType": "core/franklin/components/image/v1/image",
                 "template": {
-                  "name": "Image Item",
+                  "name": "Image",
                   "model": "image"
                 }
               }
@@ -183,21 +183,6 @@
                 "template": {
                   "name": "Image Carousel",
                   "filter": "image-carousel"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Image Item",
-          "id": "image-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/image/v1/image",
-                "template": {
-                  "name": "Image Item",
-                  "model": "image"
                 }
               }
             }
