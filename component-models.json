@@ -266,24 +266,5 @@
         "required": true
       }
     ]
-  },
-  {
-    "id": "image-item",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      }
-    ]
   }
 ]

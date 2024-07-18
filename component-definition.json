@@ -184,23 +184,6 @@
               }
             }
           }
-        },
-        {
-          "title": "Image Item",
-          "id": "image-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Image Item",
-                  "model": "image-item",
-                  "image": "image.jpg",
-                  "imageAlt": "Sample Image"
-                }
-              }
-            }
-          }
         }
       ]
     }
