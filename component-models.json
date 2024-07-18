@@ -271,18 +271,18 @@
     "id": "image-item",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "fileReference",
         "label": "Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "name": "alt",
+        "value": "Default alt",
+        "label": "Alt Text"
       }
     ]
   }
