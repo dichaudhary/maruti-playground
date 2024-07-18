@@ -3,9 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "loan-application-form",
-      "image-carousel"
-
+      "loan-application-form"
     ]
   },
   {
