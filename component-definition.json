@@ -194,9 +194,7 @@
                 "resourceType": "core/franklin/components/image/v1/image",
                 "template": {
                   "name": "Image Item",
-                  "model": "image-item",
-                  "fileReference": "image.jpg",
-                  "alt": "Sample Image"
+                  "model": "image-item"
                 }
               }
             }
