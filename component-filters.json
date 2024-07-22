@@ -29,7 +29,8 @@
       "hero",
       "cards",
       "columns",
-      "image-carousel"
+      "image-carousel",
+      "journey-carousel"
     ]
   },
   {
@@ -52,6 +53,11 @@
     "components": [
       "image"
     ]
+  },
+  {
+    "id": "journey-carousel",
+    "components": [
+      "journey-carousel-item"
+    ]
   }
-
 ]
