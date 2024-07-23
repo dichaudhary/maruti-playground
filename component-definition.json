@@ -35,9 +35,21 @@
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/image/v1/image",
+                "template": {}
+              }
+            }
+          }
+        },
+        {
+          "title": "Image Slide",
+          "id": "image-slide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/image/v1/image",
                 "template": {
-                  "name": "Image",
-                  "model": "image",
+                  "name": "Image Slide",
+                  "model": "image-slide",
                   "image": "/content/dam/aem-xwalk-test-harsh/content-at-scale.png",
                   "imageAlt": "Sample Image"
                 }
