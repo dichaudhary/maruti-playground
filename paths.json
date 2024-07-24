@@ -1,6 +1,7 @@
 {
   "mappings": [
     "/content/drudolph-maruti/:/",
-    "/content/drudolph-maruti/configuration:/.helix/config.json"
+    "/content/drudolph-maruti/configuration:/.helix/config.json",
+    "/content/drudolph-maruti/all-tags:/all-tags.json"
   ]
 }
