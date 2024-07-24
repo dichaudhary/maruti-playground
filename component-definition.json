@@ -211,7 +211,9 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Journey Carousel",
-                  "filter": "journey-carousel"
+                  "model": "journey-carousel",
+                  "filter": "journey-carousel",
+                  "common_headingType": "h3"
                 }
               }
             }
