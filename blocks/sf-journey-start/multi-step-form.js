@@ -3,7 +3,7 @@
 import { render, h, createContext, cloneElement } from '../../scripts/vendor/preact.js';
 import { useState, useRef, useEffect } from '../../scripts/vendor/preact-hooks.js';
 import { html } from '../../scripts/vendor/htm-preact.js';
-import { toClassName, wrapTextNodes } from '../../scripts/aem.js';
+import { toClassName } from '../../scripts/aem.js';
 
 export function hnodeAs(node, tagName, props = {}) {
   const copy = cloneElement(node, props);
@@ -94,7 +94,8 @@ export default async function decorate(block, routes) {
         const { attrs: newAttrs, config: newConfig } = parseConfig(configBlock, routes[name]);
         setEditorState({ attrs: newAttrs, config: newConfig });
       });
-    }, []);
+      return () => ref.current.removeEventListener('apply-update');
+    }, [name]);
 
     return html`
       <div ...${editorState ? editorState.attrs : attrs} class="${classList.join(' ')}" ref=${ref}>

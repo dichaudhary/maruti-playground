@@ -48,7 +48,7 @@ async function applyChanges(event) {
       const blockResource = block.getAttribute('data-aue-resource');
       const newBlock = parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`);
       if (newBlock) {
-        if (element.matches('.dynamic-block')) {
+        if (block.matches('.dynamic-block')) {
           // dynamic blocks manage their updates themself, dispatch an event to it
           // this is used to update the state of clientside rendered stateful applications like
           // multi step forms
