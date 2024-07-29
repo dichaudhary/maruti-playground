@@ -1,0 +1,158 @@
+.journey-carousel .jc-details picture {
+    display: none;
+}
+
+.journey-carousel .jc-details {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.journey-carousel .jc-details h3 {
+    color: #164b91;
+    width: 100%;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.2;
+    /*font-family: "Lato", sans-serif;*/
+    margin-bottom: 0px;
+}
+
+.journey-carousel .jc-details h3 + p {
+   margin-top: 0px;
+   font-size: 32px;
+    text-transform: uppercase;
+    width: 100%;
+    font-weight: bold;
+    color: #164b91;
+    /*font-family: "Lato", sans-serif;*/
+}
+
+.journey-carousel .jc-details h3 + p {
+    margin-top: 0px;
+    font-size: 32px;
+    text-transform: uppercase;
+    width: 100%;
+    font-weight: bold;
+    color: #164b91;
+    /*font-family: "Lato", sans-serif;*/
+}
+
+.journey-carousel .jc-items {
+    vertical-align: middle;
+    margin: 0 0px;
+    display: flex;
+    flex-direction: column;
+    background: url("../../icons/mobile-dotted.webp") center 60px no-repeat;
+    width: 100%;
+    padding: 0px;
+    background-size: 80% 80%;
+}
+
+.journey-carousel .jc-items > *:nth-child(odd) {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: start;
+}
+
+.journey-carousel .jc-items > *:nth-child(even) {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: start;
+}
+
+.journey-carousel .jc-item-details img {
+    width: 100%;
+    display: block;
+}
+
+.journey-carousel .jc-item-details h3 {
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+.journey-carousel .jc-item-details h3 + p {
+    width: 100%;
+    color: #959695;
+    font-size: 15px;
+    margin-top: 5px;
+    line-height: 20px;
+}
+
+@media (width >= 1200px) {
+
+    .journey-carousel {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .journey-carousel .jc-details {
+        width: 20%;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 -2px;
+    }
+
+    .journey-carousel .jc-details > div > p:first-child {
+        display: none;
+    }
+
+    .journey-carousel .jc-details picture {
+        display: block;
+    }
+
+
+    .journey-carousel .jc-details > div {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .journey-carousel .jc-details > div > p:not(:first-child) {
+        display: block;
+    }
+
+    .journey-carousel .jc-items {
+        vertical-align: baseline;
+        margin: 0 0px;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        width: 80%;
+        padding: 0px;
+        background-size: 80% 80%;
+        align-items: center;
+    }
+
+    .journey-carousel .jc-items > *:nth-child(odd) {
+        align-self: center;
+        display: block;
+        /*flex-direction: column;*/
+        width: 100%;
+        /*align-items: start;*/
+    }
+
+    .journey-carousel .jc-items > *:nth-child(even) {
+        align-self: center;
+        display: block;
+        /*flex-direction: column;*/
+        width: 100%;
+        /*align-items: start;*/
+    }
+    /*.journey-carousel .jc-details picture:first-of-type {*/
+    /*    display: none;*/
+    /*}*/
+
+    /*.journey-carousel .jc-details picture:not(:first-of-type) {*/
+    /*    display: block;*/
+    /*}*/
+
+
+}
