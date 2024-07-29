@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable import/no-unresolved */
-import { Component } from 'preact';
-import { html } from 'htm/preact';
-import { hnodeAs } from './loan-application-form.js';
+import { Component } from '../../scripts/vendor/preact.js';
+import { html } from '../../scripts/vendor/htm-preact.js';
+import { hnodeAs } from './multi-step-form.js';
 
 export default class RestorePreviousJourenyStep extends Component {
   static parse(block) {
