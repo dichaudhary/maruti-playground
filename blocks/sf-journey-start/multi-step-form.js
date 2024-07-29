@@ -7,7 +7,7 @@ import { toClassName, wrapTextNodes } from '../../scripts/aem.js';
 
 export function hnodeAs(node, tagName, props = {}) {
   const copy = cloneElement(node, props);
-  copy.type = tagName.toUpperCase();
+  copy.type = tagName;
   return copy;
 }
 
@@ -22,7 +22,7 @@ function hnode(nodes) {
         return node.data;
       }
       if (node.nodeType === 1) {
-        return h(node.nodeName, getAttributes(node), [...node.childNodes].map(hnode));
+        return h(node.nodeName.toLowerCase(), getAttributes(node), [...node.childNodes].map(hnode));
       }
     }
     return null;
@@ -91,7 +91,6 @@ export default async function decorate(block, routes) {
       ref.current.addEventListener('apply-update', ({ detail: update }) => {
         const parsedUpdate = new DOMParser().parseFromString(update, 'text/html');
         const configBlock = parsedUpdate.querySelector(`.${name}`);
-        wrapTextNodes(configBlock);
         const { attrs: newAttrs, config: newConfig } = parseConfig(configBlock, routes[name]);
         setEditorState({ attrs: newAttrs, config: newConfig });
       });
