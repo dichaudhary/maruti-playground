@@ -40,7 +40,7 @@
     ]
   },
   {
-    "id": "loan-application-form",
+    "id": "sf-joureny-start",
     "components": [
       "text",
       "image",
