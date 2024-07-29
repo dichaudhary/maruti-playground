@@ -1,7 +1,7 @@
-.loan-application-form-container {
+.sf-journey-start-container {
   background-color: lightgray;
 }
 
-.loan-application-form > div:not(.active) {
+.sf-journey-start > div:not(.active) {
   display: none;
 }
