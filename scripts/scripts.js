@@ -63,11 +63,9 @@ async function loadFonts() {
 }
 
 function buildMultiStepForms(main) {
-  [
-    '.loan-application-form-step',
-  ].forEach((selector) => {
+  ['.multistepform-step'].forEach((selector) => {
     // multi step forms are sections that have a least one step
-    main.querySelectorAll(`:scope > div:has(${selector})`).forEach((formSection) => {
+    main.querySelectorAll(`:scope > div:not([data-section-status]):has(${selector})`).forEach((formSection) => {
       const firstStep = formSection.querySelector(selector);
       const previousElement = firstStep.previousElementSibling;
       const className = selector.substring(1);
@@ -95,7 +93,7 @@ function buildMultiStepForms(main) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+export function buildAutoBlocks(main) {
   try {
     buildMultiStepForms(main);
   } catch (error) {

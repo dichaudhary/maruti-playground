@@ -8,7 +8,7 @@ import {
   loadBlocks,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain } from './scripts.js';
+import { decorateMain, buildAutoBlocks } from './scripts.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
@@ -77,6 +77,7 @@ async function applyChanges(event) {
           element.insertAdjacentElement('afterend', newSection);
           decorateButtons(newSection);
           decorateIcons(newSection);
+          buildAutoBlocks(parentElement);
           decorateRichtext(newSection);
           decorateSections(parentElement);
           decorateBlocks(parentElement);
