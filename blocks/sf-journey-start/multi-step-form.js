@@ -95,7 +95,7 @@ export default async function decorate(block, routes) {
         setEditorState({ attrs: newAttrs, config: newConfig });
       }
       ref.current.addEventListener('apply-update', handleContentUpdate);
-      return () => ref.current.removeEventListener('apply-update');
+      return () => ref.current.removeEventListener('apply-update', handleContentUpdate);
     }, [name]);
 
     return html`
