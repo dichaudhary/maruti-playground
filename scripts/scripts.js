@@ -63,26 +63,27 @@ async function loadFonts() {
 }
 
 function buildMultiStepForms(main) {
-  ['.multistepform-step'].forEach((selector) => {
+  const multiStepForms = ['sf-journey-start'];
+  multiStepForms.forEach((form) => {
+    const formStepClassName = `${form}-step`;
+    const formStepSelector = `.${formStepClassName}`;
     // multi step forms are sections that have a least one step
-    main.querySelectorAll(`:scope > div:not([data-section-status]):has(${selector})`).forEach((formSection) => {
-      const firstStep = formSection.querySelector(selector);
+    main.querySelectorAll(`:scope > div:not([data-section-status]):has(${formStepSelector})`).forEach((formSection) => {
+      const firstStep = formSection.querySelector(formStepSelector);
       const previousElement = firstStep.previousElementSibling;
-      const className = selector.substring(1);
-      const blockName = className.substring(0, selector.length - 6);
       // wrap all consecutive steps in a new block
       const steps = [];
       let step = firstStep;
       do {
-        step.classList.remove(className);
+        step.classList.remove(formStepClassName);
         wrapTextNodes(step);
         steps.push([step]);
         step = step.nextElementSibling;
-      } while (step && step.matches(selector));
+      } while (step && step.matches(formStepSelector));
       // remove any remaining out-of-order steps
-      formSection.querySelectorAll(selector).forEach((s) => s.remove());
+      formSection.querySelectorAll(formStepSelector).forEach((s) => s.remove());
       // create a new block and replace the first step with it
-      const block = buildBlock(blockName, steps);
+      const block = buildBlock(form, steps);
       if (previousElement) previousElement.after(block);
       else formSection.prepend(block);
     });
