@@ -1,41 +1,22 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable import/no-unresolved */
-import { Component } from '../../scripts/vendor/preact.js';
 import { html } from '../../scripts/vendor/htm-preact.js';
-import { hnodeAs } from './multi-step-form.js';
+import { useContext, useRef } from '../../scripts/vendor/preact-hooks.js';
+import { hnodeAs, MultiStepFormContext } from './multi-step-form.js';
 
-export default class BasicUserDetailsStep extends Component {
-  static parse(block) {
-    const [
-      introWrapper,
-      guidanceWrapper,
-      disclaimerWrapper,
-      submitButtonWrapper,
-    ] = [...block.children].map((row) => row.firstElementChild);
-    const intro = introWrapper.children;
-    const guidance = guidanceWrapper.children;
-    const disclaimer = disclaimerWrapper.children;
-    const submitButton = submitButtonWrapper.firstElementChild;
-    return { intro, guidance, disclaimer, submitButton };
-  }
+function BasicUserDetailsStep({ config }) {
+  const { intro, guidance, disclaimer, submitButton } = config;
+  const { updateFormState } = useContext(MultiStepFormContext);
+  const formRef = useRef();
 
-  static defaults = {
-    into: html`<p>Introduction</p>`,
-    guidance: html`<p>guidance</p>`,
-    disclaimer: html`<p>Disclaimer</p>`,
-    submitButton: html`<button>Submit</button>`,
+  const handleOnSubmit = (e) => {
+    const formEntries = Object.fromEntries([...new FormData(formRef.current)]);
+    updateFormState((currentState) => ({ ...currentState, ...formEntries }));
+    e.preventDefault();
   };
 
-  render() {
-    const {
-      intro,
-      guidance,
-      disclaimer,
-      submitButton,
-    } = this.props.config;
-
-    return html`
-      <form>
+  return html`
+      <form ref=${formRef} onsubmit=${(e) => handleOnSubmit(e)}>
         <div class="basic-user-details-step-description">
           ${intro}
         </div>
@@ -57,5 +38,27 @@ export default class BasicUserDetailsStep extends Component {
         </div>
       </form>
     `;
-  }
 }
+
+BasicUserDetailsStep.parse = (block) => {
+  const [
+    introWrapper,
+    guidanceWrapper,
+    disclaimerWrapper,
+    submitButtonWrapper,
+  ] = [...block.children].map((row) => row.firstElementChild);
+  const intro = introWrapper.children;
+  const guidance = guidanceWrapper.children;
+  const disclaimer = disclaimerWrapper.children;
+  const submitButton = submitButtonWrapper.firstElementChild;
+  return { intro, guidance, disclaimer, submitButton };
+};
+
+BasicUserDetailsStep.defaults = {
+  into: html`<p>Introduction</p>`,
+  guidance: html`<p>guidance</p>`,
+  disclaimer: html`<p>Disclaimer</p>`,
+  submitButton: html`<button>Submit</button>`,
+};
+
+export default BasicUserDetailsStep;

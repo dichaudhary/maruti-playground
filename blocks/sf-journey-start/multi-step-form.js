@@ -108,7 +108,8 @@ export default async function decorate(block, routes) {
   function MultiStepForm() {
     const [firstRoute] = Object.keys(routes);
     const [activeRoute, setActiveRoute] = useState(firstRoute);
-    const context = { activeRoute, setActiveRoute };
+    const [formState, updateFormState] = useState({});
+    const context = { activeRoute, setActiveRoute, formState, updateFormState };
 
     // if loaded in an iframe (Universal Editor), render all routes
     block.dataset.renderAll = window.self !== window.top ? 'true' : '';
@@ -122,6 +123,11 @@ export default async function decorate(block, routes) {
         block.dataset.activeRoute = newRoute;
       }
     });
+
+    useEffect(() => {
+      // TODO: implement actual handling of form state changes, this is just for demo purposes
+      console.log(formState);
+    }, [formState]);
 
     let formContent;
     if (block.dataset.renderAll === 'true') {
