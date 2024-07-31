@@ -1,3 +1,6 @@
+
+
+
 export default async function decorate(block) {
   const divs = block.querySelectorAll(':scope > div');
 
@@ -23,10 +26,70 @@ export default async function decorate(block) {
 
   // Move the remaining divs into the new div and add the class 'jc-item-details'
   for (let i = 1; i < divs.length; i++) {
+    const itemdiv = document.createElement('div');
+    itemdiv.classList.add('jc-item');
+    const arrowdiv = document.createElement('div');
+    arrowdiv.classList.add('jc-arrow');
+    itemdiv.appendChild(arrowdiv);
     divs[i].classList.add('jc-item-details');
-    newDiv.appendChild(divs[i]);
+    itemdiv.appendChild(divs[i]);
+    newDiv.appendChild(itemdiv);
   }
 
   // Add the new div element to the block
   block.appendChild(newDiv);
+
+
+  // Add the carousel functionality
+  const carouselDiv = document.createElement('div');
+  carouselDiv.classList.add('carouselDiv');
+  const leftArrow = document.createElement('div');
+  leftArrow.classList.add('leftArrow');
+  leftArrow.innerHTML = '<';
+  const rightArrow = document.createElement('div');
+  rightArrow.classList.add('rightArrow');
+  rightArrow.innerHTML = '>';
+  carouselDiv.appendChild(leftArrow);
+  carouselDiv.appendChild(rightArrow);
+  block.appendChild(carouselDiv);
+
+
+  const jcItems = block.querySelector('.jc-items');
+
+  let currentIndex = 0;
+  let direction = 1;
+  const jcItemDetails = block.querySelectorAll('.jc-item');
+
+  function updateCarousel() {
+    const jcItemList = block.querySelectorAll('.jc-item');
+    const itemWidth = jcItemList[0]?.offsetWidth || 0; // Get the width of one item
+    // jcItems.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
+
+
+    jcItemList.forEach((item, index) => {
+      if (index === currentIndex || (index === (currentIndex + 1) % jcItemDetails.length)) {
+        item.style.display = 'block';
+        //item.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
+
+      }
+      else {
+        item.style.display = 'none';
+      }
+    });
+
+  }
+
+  leftArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+    direction = -1;
+    updateCarousel();
+  });
+
+  rightArrow.addEventListener('click', () => {
+    direction = 1;
+    currentIndex = (currentIndex + 1) % jcItemDetails.length;
+    updateCarousel();
+  });
+
+
 }
