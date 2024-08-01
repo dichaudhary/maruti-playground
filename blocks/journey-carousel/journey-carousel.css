@@ -109,7 +109,8 @@
 
     .journey-carousel .carouselDiv {
         position: relative;
-         overflow: hidden; 
+        overflow: hidden; 
+        padding-left: 50px;
     }
 
     .journey-carousel .jc-details h3 {
