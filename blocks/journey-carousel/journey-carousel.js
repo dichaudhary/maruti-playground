@@ -95,41 +95,33 @@ export default async function decorate(block) {
 
 
   const jcItems = block.querySelector('.jc-items');
+const jcItemDetails = block.querySelectorAll('.jc-item');
+let currentIndex = 0;
 
-  let currentIndex = 0;
-  let direction = 1;
-  const jcItemDetails = block.querySelectorAll('.jc-item');
+function updateCarousel() {
+  const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
+  jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+}
 
-  function updateCarousel() {
-    const jcItemList = block.querySelectorAll('.jc-item');
-    const itemWidth = jcItemList[0]?.offsetWidth || 0; // Get the width of one item
-    jcItems.style.transform = `translateX(${currentIndex * itemWidth*direction*-1}px)`;
+leftArrow.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+  updateCarousel();
+});
 
-
-    // jcItemList.forEach((item, index) => {
-    //   if (index === currentIndex || (index === (currentIndex + 1) % jcItemDetails.length)) {
-    //     item.style.display = 'block';
-    //     //item.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
-
-    //   }
-    //   else {
-    //     item.style.display = 'none';
-    //   }
-    // });
-
+rightArrow.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % jcItemDetails.length;
+  // Add a clone of the first item to the end when the last item is in view
+  if (currentIndex === jcItemDetails.length - 1) {
+    const clone = jcItemDetails[0].cloneNode(true);
+    jcItems.appendChild(clone);
   }
-
-  leftArrow.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
-    direction = -1;
-    updateCarousel();
-  });
-
-  rightArrow.addEventListener('click', () => {
-    direction = 1;
-    currentIndex = (currentIndex + 1) % jcItemDetails.length;
-    updateCarousel();
-  });
+  // Remove the clone and reset currentIndex when the first item comes into view
+  else if (currentIndex === 0 && jcItemDetails.length > 4) {
+    jcItems.removeChild(jcItems.lastChild);
+    currentIndex = jcItemDetails.length - 2;
+  }
+  updateCarousel();
+});
 
 
   function updateView() {
