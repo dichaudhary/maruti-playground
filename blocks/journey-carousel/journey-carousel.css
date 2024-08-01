@@ -86,7 +86,8 @@
     line-height: 20px;
 }
 
-.arrowDiv {
+.journey-carousel .jc-arrow,
+.journey-carousel .arrowDiv {
     display: none;
 }
 
@@ -106,7 +107,8 @@
     .journey-carousel .carouselDiv {
         position: relative;
         overflow: hidden;
-        padding-left: 50px;
+        margin-left: 50px;
+        padding: 2px;
     }
 
     .journey-carousel .jc-details h3 {
@@ -158,6 +160,7 @@
         box-sizing: border-box;
         transition: all 0.25s ease 0s;
         align-self: auto;
+        flex-direction: row;
     }
 
     .journey-carousel .arrowDiv {
@@ -175,8 +178,7 @@
         height: 32px;
         background: url("../../icons/left.webp") center center no-repeat;
         text-indent: -9999px;
-        margin: 5px 0;
-        border-radius: 50%
+        margin: 20px 0;
     }
 
     .journey-carousel .rightArrow {
@@ -184,8 +186,7 @@
         height: 32px;
         background: url("../../icons/right.webp") center center no-repeat;
         text-indent: -9999px;
-        margin: 5px 0;
-        border-radius: 50%
+        margin: -10px 0;
     }
 
     .section.journey-carousel-container {
@@ -193,18 +194,29 @@
     }
 
     .journey-carousel .jc-arrow {
+        position: absolute;
+        transform: translateX(-75%) translateY(-30%);
         display: inline-block;
-        flex: 0 0 20%;
+        position: absolute;
         height: 100%;
-        width: 20%;
+        width: 35%;
         background: url("../../icons/arrow.webp") center center no-repeat;
         background-size: contain;
     }
+
+    /* .journey-carousel .jc-items .jc-item .jc-arrow:first-of-type {    
+        clip-path: inset(0 0 0 50%);
+     } */
 }
 
 @media (width >=1024px) {
     .section.journey-carousel-container {
         padding: 50px 0;
+    }
+
+    .journey-carousel .jc-arrow {
+        transform: translateX(-75%) translateY(-35%);
+        width: 15%;
     }
 
     .journey-carousel .journey-carousel {
@@ -227,6 +239,12 @@
         flex: 0 0 25%;
         transition: all 0.25s ease 0s;
     }
+    
+    .journey-carousel .jc-items .jc-item div.jc-arrow:last-of-type {    
+        transform: translateX(80%) translateY(-35%);
+        width: 15%;
+        clip-path: inset(0 50% 0 0);
+     }
 
     .journey-carousel .jc-item-details {
         flex: 1;

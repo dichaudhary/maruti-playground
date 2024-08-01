@@ -48,15 +48,12 @@ export default async function decorate(block) {
       if (nextP && nextP.tagName.toLowerCase() === 'p') {
         const wrapperDiv = document.createElement('div');
         wrapperDiv.classList.add('wrapped-content');
-
         h3.parentNode.insertBefore(wrapperDiv, h3);
         wrapperDiv.appendChild(h3);
         wrapperDiv.appendChild(nextP);
       }
     });
   }
-
-  // Add the class to the rest of the divs
   const caraousalDiv = document.createElement('div');
   caraousalDiv.classList.add('carouselDiv');
   block.appendChild(caraousalDiv);
@@ -72,11 +69,18 @@ export default async function decorate(block) {
     itemdiv.appendChild(arrowdiv);
     divs[i].classList.add('jc-item-details');
     itemdiv.appendChild(divs[i]);
+
+    if (i === divs.length - 1) {
+      arrowdiv = document.createElement('div');
+      arrowdiv.classList.add('jc-arrow');
+      itemdiv.appendChild(arrowdiv);
+    }
     newDiv.appendChild(itemdiv);
   }
 
   // Add the new div element to the block
   caraousalDiv.appendChild(newDiv);
+
   // Add the carousel functionality
   const navDiv = document.createElement('div');
   navDiv.classList.add('arrowDiv');
