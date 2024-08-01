@@ -45,10 +45,8 @@ export default async function decorate(block) {
   carouselDiv.classList.add('carouselDiv');
   const leftArrow = document.createElement('div');
   leftArrow.classList.add('leftArrow');
-  leftArrow.innerHTML = '<';
   const rightArrow = document.createElement('div');
   rightArrow.classList.add('rightArrow');
-  rightArrow.innerHTML = '>';
   carouselDiv.appendChild(leftArrow);
   carouselDiv.appendChild(rightArrow);
   block.appendChild(carouselDiv);
@@ -63,7 +61,7 @@ export default async function decorate(block) {
   function updateCarousel() {
     const jcItemList = block.querySelectorAll('.jc-item');
     const itemWidth = jcItemList[0]?.offsetWidth || 0; // Get the width of one item
-    // jcItems.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
+    //jcItems.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
 
 
     jcItemList.forEach((item, index) => {
@@ -91,5 +89,32 @@ export default async function decorate(block) {
     updateCarousel();
   });
 
+
+  function updateView() {
+    if (window.innerWidth <= 768) {
+      jcItemDetails.forEach((item, index) => {
+        if(index === 0 || index === 1){
+          item.style.display = 'block';
+        }
+        else {
+          item.style.display = 'none';
+        }
+      });
+
+      carouselDiv.style.display = 'block';
+      
+    } else {
+      // Desktop screens
+      jcItemDetails.forEach((item, index) => {
+        item.style.display = 'block';
+      });
+
+      carouselDiv.style.display = 'none';
+    }
+  }
+
+
+  // Add event listener for window resize
+  window.addEventListener('resize', updateView);
 
 }

@@ -145,15 +145,15 @@
         margin: 0 0px;
         display: flex;
         flex-direction: row;
+        transition: all 0.25s ease 0s;
         background: none;
         width: 80%;
-        padding: 0px;
-        background-size: 80% 80%;
-        align-items: center;
+        
     }
 
     .journey-carousel .jc-items .jc-item {
         display: none;
+        transition: all 0.25s ease 0s;
     }
 
     /* div.jc-arrow::after {
