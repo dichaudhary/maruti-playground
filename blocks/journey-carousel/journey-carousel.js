@@ -55,7 +55,7 @@ export default async function decorate(block) {
     });
   }
   const caraousalDiv = document.createElement('div');
-  caraousalDiv.classList.add('carouselDiv');
+  caraousalDiv.classList.add('carousel-div');
   block.appendChild(caraousalDiv);
   const newDiv = document.createElement('div');
   newDiv.classList.add('jc-items');
@@ -83,11 +83,11 @@ export default async function decorate(block) {
 
   // Add the carousel functionality
   const navDiv = document.createElement('div');
-  navDiv.classList.add('arrowDiv');
+  navDiv.classList.add('arrow-div');
   const leftArrow = document.createElement('div');
-  leftArrow.classList.add('leftArrow');
+  leftArrow.classList.add('left-arrow');
   const rightArrow = document.createElement('div');
-  rightArrow.classList.add('rightArrow');
+  rightArrow.classList.add('right-arrow');
   navDiv.appendChild(leftArrow);
   navDiv.appendChild(rightArrow);
   caraousalDiv.appendChild(navDiv);
@@ -152,7 +152,7 @@ export default async function decorate(block) {
   });
   function updateView() {
     const clones = block.querySelectorAll('.clone'); // Use querySelectorAll for NodeList
-    const arrowDiv = document.querySelector('.arrowDiv'); // Assuming `arrowDiv` is the container for arrows
+    const arrowDiv = document.querySelector('.arrow-div'); // Assuming `arrowDiv` is the container for arrows
 
     // Check device type
     Viewport.getDeviceType();
