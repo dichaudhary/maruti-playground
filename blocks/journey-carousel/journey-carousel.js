@@ -168,12 +168,13 @@ export default async function decorate(block) {
         arrowDiv.style.display = 'block';
         currentIndex = 1;
         updateCarousel();
-    } else {
+    } else  {
         // Desktop screens
         clones.forEach((item) => {
             item.style.display = 'none';
         });
-        currentIndex = 0; // Reset the current index
+        currentIndex = 0; 
+        updateCarousel();
         arrowDiv.style.display = 'none';
     }
 }

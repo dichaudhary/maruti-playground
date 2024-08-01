@@ -48,15 +48,15 @@
     background-size: 80% 80%;
 }
 
-.journey-carousel .jc-items>*:nth-child(odd) {
-    align-self: center;
+.journey-carousel .jc-items>*:nth-child(even) {
+    align-self: flex-start;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 60%;
     align-items: start;
 }
 
-.journey-carousel .jc-items>*:nth-child(even) {
+.journey-carousel .jc-items>*:nth-child(odd) {
     align-self: flex-end;
     display: flex;
     flex-direction: column;
