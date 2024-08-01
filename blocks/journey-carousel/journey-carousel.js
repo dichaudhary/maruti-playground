@@ -105,6 +105,17 @@ function updateCarousel() {
 
 leftArrow.addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+  // Add a clone of the last item to the start when the first item is in view
+  if (currentIndex === 0) {
+    const clone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
+    jcItems.insertBefore(clone, jcItems.firstChild);
+  }
+  // Remove the clone and reset currentIndex when the last item comes into view
+  else if (currentIndex === jcItemDetails.length - 1 && jcItemDetails.length > 4) {
+    jcItems.removeChild(jcItems.firstChild);
+    currentIndex = 1;
+    jcItems.style.transition = 'none';
+  }
   updateCarousel();
 });
 
