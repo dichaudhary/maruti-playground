@@ -19,8 +19,6 @@ const Viewport = (function initializeViewport() {
   }
   getDeviceType();
 
-
-
   function isDesktop() {
     return deviceType === 'Desktop';
   }
@@ -38,7 +36,6 @@ const Viewport = (function initializeViewport() {
     isTablet,
   };
 }());
-
 
 export default async function decorate(block) {
   const divs = block.querySelectorAll(':scope > div');
@@ -67,7 +64,7 @@ export default async function decorate(block) {
   newDiv.classList.add('jc-items');
 
   // Move the remaining divs into the new div and add the class 'jc-item-details'
-  for (let i = 1; i < divs.length; i++) {
+  for (let i = 1; i < divs.length; i += 1) {
     const itemdiv = document.createElement('div');
     itemdiv.classList.add('jc-item');
     const arrowdiv = document.createElement('div');
@@ -80,8 +77,6 @@ export default async function decorate(block) {
 
   // Add the new div element to the block
   caraousalDiv.appendChild(newDiv);
-
-
   // Add the carousel functionality
   const navDiv = document.createElement('div');
   navDiv.classList.add('arrowDiv');
@@ -92,7 +87,6 @@ export default async function decorate(block) {
   navDiv.appendChild(leftArrow);
   navDiv.appendChild(rightArrow);
   caraousalDiv.appendChild(navDiv);
-
 
   const jcItems = block.querySelector('.jc-items');
   let jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
@@ -113,19 +107,17 @@ export default async function decorate(block) {
   function updateCarousel() {
     const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
     jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-    //jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add a transition effect
   }
-
   // Update the carousel when the transition ends
   jcItems.addEventListener('transitionend', () => {
     if (jcItemDetails[currentIndex] === firstClone) {
       jcItems.style.transition = 'none'; // Remove the transition effect
       currentIndex = 1; // Move to the first item
-      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     } else if (jcItemDetails[currentIndex] === lastClone) {
       jcItems.style.transition = 'none'; // Remove the transition effect
       currentIndex = jcItemDetails.length - 2; // Move to the last item
-      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     }
   });
 
@@ -133,7 +125,7 @@ export default async function decorate(block) {
     if (currentIndex <= 0) {
       jcItems.style.transition = 'none'; // Remove the transition effect
       currentIndex = jcItemDetails.length - 2; // Move to the last item
-      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     }
     setTimeout(() => {
       jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
@@ -146,7 +138,7 @@ export default async function decorate(block) {
     if (currentIndex >= jcItemDetails.length - 1) {
       jcItems.style.transition = 'none'; // Remove the transition effect
       currentIndex = 1; // Move to the first item
-      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     }
     setTimeout(() => {
       jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
@@ -157,31 +149,27 @@ export default async function decorate(block) {
   function updateView() {
     const clones = block.querySelectorAll('.clone'); // Use querySelectorAll for NodeList
     const arrowDiv = document.querySelector('.arrowDiv'); // Assuming `arrowDiv` is the container for arrows
-    
+
     // Check device type
     Viewport.getDeviceType();
 
     if (Viewport.isTablet()) {
-        clones.forEach((item) => {
-            item.style.display = 'block';
-        });
-        arrowDiv.style.display = 'block';
-        currentIndex = 1;
-        updateCarousel();
-    } else  {
-        // Desktop screens
-        clones.forEach((item) => {
-            item.style.display = 'none';
-        });
-        currentIndex = 0; 
-        updateCarousel();
-        arrowDiv.style.display = 'none';
+      clones.forEach((item) => {
+        item.style.display = 'block';
+      });
+      arrowDiv.style.display = 'block';
+      currentIndex = 1;
+      updateCarousel();
+    } else {
+      // Desktop screens
+      clones.forEach((item) => {
+        item.style.display = 'none';
+      });
+      currentIndex = 0;
+      updateCarousel();
+      arrowDiv.style.display = 'none';
     }
-}
-
-
-
+  }
   // Add event listener for window resize
   window.addEventListener('resize', updateView);
-
 }
