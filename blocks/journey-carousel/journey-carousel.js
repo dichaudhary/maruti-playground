@@ -1,4 +1,43 @@
+const Viewport = (function initializeViewport() {
+  let deviceType;
 
+  const breakpoints = {
+    mobile: window.matchMedia('(max-width: 47.99rem)'),
+    tablet: window.matchMedia('(min-width: 48rem) and (max-width: 63.99rem)'),
+    desktop: window.matchMedia('(min-width: 64rem)'),
+  };
+
+  function getDeviceType() {
+    if (breakpoints.mobile.matches) {
+      deviceType = 'Mobile';
+    } else if (breakpoints.tablet.matches) {
+      deviceType = 'Tablet';
+    } else {
+      deviceType = 'Desktop';
+    }
+    return deviceType;
+  }
+  getDeviceType();
+
+  
+
+  function isDesktop() {
+    return deviceType === 'Desktop';
+  }
+
+  function isMobile() {
+    return deviceType === 'Mobile';
+  }
+  function isTablet() {
+    return deviceType === 'Tablet';
+  }
+  return {
+    getDeviceType,
+    isDesktop,
+    isMobile,
+    isTablet,
+  };
+}());
 
 
 export default async function decorate(block) {
@@ -21,6 +60,9 @@ export default async function decorate(block) {
   }
 
   // Add the class to the rest of the divs
+  const caraousalDiv = document.createElement('div');
+  caraousalDiv.classList.add('carouselDiv');
+  block.appendChild(caraousalDiv);
   const newDiv = document.createElement('div');
   newDiv.classList.add('jc-items');
 
@@ -37,19 +79,19 @@ export default async function decorate(block) {
   }
 
   // Add the new div element to the block
-  block.appendChild(newDiv);
+  caraousalDiv.appendChild(newDiv);
 
 
   // Add the carousel functionality
-  const carouselDiv = document.createElement('div');
-  carouselDiv.classList.add('carouselDiv');
+  const navDiv = document.createElement('div');
+  navDiv.classList.add('arrowDiv');
   const leftArrow = document.createElement('div');
   leftArrow.classList.add('leftArrow');
   const rightArrow = document.createElement('div');
   rightArrow.classList.add('rightArrow');
-  carouselDiv.appendChild(leftArrow);
-  carouselDiv.appendChild(rightArrow);
-  block.appendChild(carouselDiv);
+  navDiv.appendChild(leftArrow);
+  navDiv.appendChild(rightArrow);
+  caraousalDiv.appendChild(navDiv);
 
 
   const jcItems = block.querySelector('.jc-items');
@@ -61,19 +103,19 @@ export default async function decorate(block) {
   function updateCarousel() {
     const jcItemList = block.querySelectorAll('.jc-item');
     const itemWidth = jcItemList[0]?.offsetWidth || 0; // Get the width of one item
-    //jcItems.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
+    jcItems.style.transform = `translateX(${currentIndex * itemWidth*direction*-1}px)`;
 
 
-    jcItemList.forEach((item, index) => {
-      if (index === currentIndex || (index === (currentIndex + 1) % jcItemDetails.length)) {
-        item.style.display = 'block';
-        //item.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
+    // jcItemList.forEach((item, index) => {
+    //   if (index === currentIndex || (index === (currentIndex + 1) % jcItemDetails.length)) {
+    //     item.style.display = 'block';
+    //     //item.style.transform = `translateX(-${currentIndex * itemWidth*direction}px)`;
 
-      }
-      else {
-        item.style.display = 'none';
-      }
-    });
+    //   }
+    //   else {
+    //     item.style.display = 'none';
+    //   }
+    // });
 
   }
 
@@ -91,25 +133,21 @@ export default async function decorate(block) {
 
 
   function updateView() {
-    if (window.innerWidth <= 768) {
+    Viewport.getDeviceType();
+    if (Viewport.isTablet() ) {
       jcItemDetails.forEach((item, index) => {
-        if(index === 0 || index === 1){
-          item.style.display = 'block';
-        }
-        else {
-          item.style.display = 'none';
-        }
+        
       });
 
-      carouselDiv.style.display = 'block';
+      arrowDiv.style.display = 'block';
       
     } else {
       // Desktop screens
       jcItemDetails.forEach((item, index) => {
-        item.style.display = 'block';
+       // item.style.display = 'block';
       });
 
-      carouselDiv.style.display = 'none';
+      arrowDiv.style.display = 'none';
     }
   }
 

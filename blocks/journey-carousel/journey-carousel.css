@@ -49,9 +49,9 @@
 }
 
 .journey-carousel .jc-items>*:nth-child(odd) {
-    align-self: flex-start;
+    align-self: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 60%;
     align-items: start;
 }
@@ -89,7 +89,7 @@
     line-height: 20px;
 }
 
-.carouselDiv {
+.arrowDiv {
     display: none;
 }
 
@@ -101,6 +101,11 @@
         align-items: center;
         margin: 0px 30px;
         padding: 0px 15px;
+    }
+
+    .journey-carousel .carouselDiv {
+        position: relative;
+         overflow: hidden; 
     }
 
     .journey-carousel .jc-details h3 {
@@ -144,15 +149,14 @@
         vertical-align: baseline;
         margin: 0 0px;
         display: flex;
+        transition: transform 0.3s ease;
         flex-direction: row;
-        transition: all 0.25s ease 0s;
         background: none;
-        width: 80%;
-        
     }
 
     .journey-carousel .jc-items .jc-item {
-        display: none;
+        flex: 0 0 50%;
+        box-sizing: border-box; 
         transition: all 0.25s ease 0s;
     }
 
@@ -161,16 +165,27 @@
         display: inline;
         
     } */
-    .carouselDiv {
-        display: block;
-        align-items: center;
-    }
-
-    .journey-carousel .jc-items>*:nth-child(1),
-    .journey-carousel .jc-items>*:nth-child(2) {
+    .arrowDiv {
+       
         display: flex;
-
+        flex-direction: column;
+        justify-content: center; 
+        position: absolute; 
+        right: 0;
+        top: 0;
+        height: 100%; 
     }
+
+    /* .journey-carousel .jc-items>*:nth-child(odd),
+    .journey-carousel .jc-items>*:nth-child(even) {
+        display: flex;
+        align-self: flex-start;
+         display: flex;
+        flex-direction: column;
+        width: 60%;
+        align-items: start;
+
+    } */
 
     .leftArrow {
         width: 32px;
@@ -193,18 +208,22 @@
 
 @media (width >=1024px) {
 
-    .journey-carousel .jc-items>*:nth-child(odd),
+    /* .journey-carousel .jc-items>*:nth-child(odd),
     .journey-carousel .jc-items>*:nth-child(even) {
         align-self: center;
         display: flex;
         flex-direction: row;
         width: 80%;
-    }
+    } */
 
-    .carouselDiv {
+    .arrowDiv {
         display: none;
     }
 
+    .journey-carousel .jc-items .jc-item {
+        flex: 0 0 25%;
+        transition: all 0.25s ease 0s;
+    }
     .jc-arrow {
         display: inline-block;
         flex: 0 0 20%;
