@@ -93,6 +93,10 @@
     display: none;
 }
 
+.journey-carousel .jc-items .jc-item.clone {
+    display: none;
+}
+
 @media (width >=768px) {
 
     .journey-carousel {
@@ -217,6 +221,10 @@
     } */
 
     .arrowDiv {
+        display: none;
+    }
+
+    .journey-carousel .jc-items .jc-item.clone {
         display: none;
     }
 

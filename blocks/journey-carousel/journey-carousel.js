@@ -19,7 +19,7 @@ const Viewport = (function initializeViewport() {
   }
   getDeviceType();
 
-  
+
 
   function isDesktop() {
     return deviceType === 'Desktop';
@@ -95,64 +95,89 @@ export default async function decorate(block) {
 
 
   const jcItems = block.querySelector('.jc-items');
-const jcItemDetails = block.querySelectorAll('.jc-item');
-let currentIndex = 0;
+  let jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
+  let currentIndex = 1; // Start from the second item (the first visible item)
 
-function updateCarousel() {
-  const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
-  jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+  // Clone the first and last item
+  const firstClone = jcItemDetails[0].cloneNode(true);
+  firstClone.classList.add('clone');
+  const lastClone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
+  lastClone.classList.add('clone');
+  // Add the clones to the start and end of the carousel
+  jcItems.prepend(lastClone);
+  jcItems.appendChild(firstClone);
+
+  // Update the jcItemDetails to include the clones
+  jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
+
+  function updateCarousel() {
+    const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
+    jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    //jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add a transition effect
+  }
+
+  // Update the carousel when the transition ends
+  jcItems.addEventListener('transitionend', () => {
+    if (jcItemDetails[currentIndex] === firstClone) {
+      jcItems.style.transition = 'none'; // Remove the transition effect
+      currentIndex = 1; // Move to the first item
+      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+    } else if (jcItemDetails[currentIndex] === lastClone) {
+      jcItems.style.transition = 'none'; // Remove the transition effect
+      currentIndex = jcItemDetails.length - 2; // Move to the last item
+      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+    }
+  });
+
+  leftArrow.addEventListener('click', () => {
+    if (currentIndex <= 0) {
+      jcItems.style.transition = 'none'; // Remove the transition effect
+      currentIndex = jcItemDetails.length - 2; // Move to the last item
+      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+    }
+    setTimeout(() => {
+      jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
+      currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+      updateCarousel();
+    }, 0);
+  });
+
+  rightArrow.addEventListener('click', () => {
+    if (currentIndex >= jcItemDetails.length - 1) {
+      jcItems.style.transition = 'none'; // Remove the transition effect
+      currentIndex = 1; // Move to the first item
+      jcItems.style.transform = `translateX(-${currentIndex * jcItemDetails[0]?.offsetWidth}px)`;
+    }
+    setTimeout(() => {
+      jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
+      currentIndex = (currentIndex + 1) % jcItemDetails.length;
+      updateCarousel();
+    }, 0);
+  });
+  function updateView() {
+    const clones = block.querySelectorAll('.clone'); // Use querySelectorAll for NodeList
+    const arrowDiv = document.querySelector('.arrowDiv'); // Assuming `arrowDiv` is the container for arrows
+    
+    // Check device type
+    Viewport.getDeviceType();
+
+    if (Viewport.isTablet()) {
+        clones.forEach((item) => {
+            item.style.display = 'block';
+        });
+        arrowDiv.style.display = 'block';
+        currentIndex = 1;
+        updateCarousel();
+    } else {
+        // Desktop screens
+        clones.forEach((item) => {
+            item.style.display = 'none';
+        });
+        currentIndex = 0; // Reset the current index
+        arrowDiv.style.display = 'none';
+    }
 }
 
-leftArrow.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
-  // Add a clone of the last item to the start when the first item is in view
-  if (currentIndex === 0) {
-    const clone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
-    jcItems.insertBefore(clone, jcItems.firstChild);
-  }
-  // Remove the clone and reset currentIndex when the last item comes into view
-  else if (currentIndex === jcItemDetails.length - 1 && jcItemDetails.length > 4) {
-    jcItems.removeChild(jcItems.firstChild);
-    currentIndex = 1;
-    jcItems.style.transition = 'none';
-  }
-  updateCarousel();
-});
-
-rightArrow.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % jcItemDetails.length;
-  // Add a clone of the first item to the end when the last item is in view
-  if (currentIndex === jcItemDetails.length - 1) {
-    const clone = jcItemDetails[0].cloneNode(true);
-    jcItems.appendChild(clone);
-  }
-  // Remove the clone and reset currentIndex when the first item comes into view
-  else if (currentIndex === 0 && jcItemDetails.length > 4) {
-    jcItems.removeChild(jcItems.lastChild);
-    currentIndex = jcItemDetails.length - 2;
-  }
-  updateCarousel();
-});
-
-
-  function updateView() {
-    Viewport.getDeviceType();
-    if (Viewport.isTablet() ) {
-      jcItemDetails.forEach((item, index) => {
-        
-      });
-
-      arrowDiv.style.display = 'block';
-      
-    } else {
-      // Desktop screens
-      jcItemDetails.forEach((item, index) => {
-       // item.style.display = 'block';
-      });
-
-      arrowDiv.style.display = 'none';
-    }
-  }
 
 
   // Add event listener for window resize

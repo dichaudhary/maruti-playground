@@ -20,9 +20,9 @@
   --text-color: black;
 
   /* fonts */
-  --body-font-family:  "Lato", sans-serif;
+  --body-font-family: Lato, roboto-fallback;
   --heading-font-family: var(--body-font-family);
-  --fixed-font-family:  "Lato", sans-serif;
+  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
   --body-font-size-m: 22px;
