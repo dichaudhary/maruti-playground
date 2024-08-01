@@ -71,9 +71,9 @@ export default async function decorate(block) {
     itemdiv.appendChild(divs[i]);
 
     if (i === divs.length - 1) {
-      arrowdiv = document.createElement('div');
-      arrowdiv.classList.add('jc-arrow');
-      itemdiv.appendChild(arrowdiv);
+      const lastarrowdiv = document.createElement('div');
+      lastarrowdiv.classList.add('jc-arrow');
+      itemdiv.appendChild(lastarrowdiv);
     }
     newDiv.appendChild(itemdiv);
   }
