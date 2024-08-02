@@ -70,10 +70,10 @@ export default async function decorate(block) {
     divs[i].classList.add('jc-item-details');
     itemdiv.appendChild(divs[i]);
 
-    if (i === divs.length - 1) {
-      const lastarrowdiv = document.createElement('div');
-      lastarrowdiv.classList.add('jc-arrow');
-      itemdiv.appendChild(lastarrowdiv);
+    if (i === 1) {
+      const firstArrowdiv = document.createElement('div');
+      firstArrowdiv.classList.add('jc-arrow');
+      itemdiv.appendChild(firstArrowdiv);
     }
     newDiv.appendChild(itemdiv);
   }
@@ -99,9 +99,10 @@ export default async function decorate(block) {
   // Clone the first and last item
   const firstClone = jcItemDetails[0].cloneNode(true);
   firstClone.classList.add('clone');
+
   const lastClone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
   lastClone.classList.add('clone');
-  // Add the clones to the start and end of the carousel
+
   jcItems.prepend(lastClone);
   jcItems.appendChild(firstClone);
 
@@ -150,6 +151,7 @@ export default async function decorate(block) {
       updateCarousel();
     }, 0);
   });
+
   function updateView() {
     const clones = block.querySelectorAll('.clone'); // Use querySelectorAll for NodeList
     const arrowDiv = document.querySelector('.arrow-div'); // Assuming `arrowDiv` is the container for arrows
@@ -163,16 +165,15 @@ export default async function decorate(block) {
       });
       arrowDiv.style.display = 'block';
       currentIndex = 1;
-      updateCarousel();
     } else {
       // Desktop screens
       clones.forEach((item) => {
         item.style.display = 'none';
       });
       currentIndex = 0;
-      updateCarousel();
       arrowDiv.style.display = 'none';
     }
+    updateCarousel();
   }
   // Add event listener for window resize
   window.addEventListener('resize', updateView);
