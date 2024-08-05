@@ -18,6 +18,9 @@
   --light-color: #eee;
   --dark-color: #ccc;
   --text-color: black;
+  --tertiary-light-grey: #f2f2f2;
+  --tertiary-medium-grey: #b2b2b2;
+  --tertiary-black: #000;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback;
@@ -206,6 +209,10 @@ main .section {
   padding: 64px 16px;
 }
 
+main .section.image-carousel-container {
+  padding: 0;
+}
+
 @media (width >= 600px) {
   main .section {
     padding: 64px 32px;
@@ -218,6 +225,13 @@ main .section {
     margin: auto;
   }
 }
+
+@media (width >= 900px) {
+  .section > .image-carousel-wrapper {
+    max-width: 100%;
+  }
+}
+
 
 /* section metadata */
 main .section.light,
