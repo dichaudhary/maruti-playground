@@ -297,27 +297,6 @@
     "id": "journey-carousel",
     "fields": [
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "common_heading",
-        "value": "",
-        "label": "Heading",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "common_headingType",
-        "value": "h3",
-        "hidden": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "common_description",
-        "value": "",
-        "label": "Description"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "common_background-image",
@@ -340,6 +319,27 @@
         "value": "Default alt",
         "label": "Alt Text",
         "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "common_heading",
+        "value": "",
+        "label": "Heading",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "common_headingType",
+        "value": "h3",
+        "hidden": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "common_description",
+        "value": "",
+        "label": "Description"
       }
     ]
   },
