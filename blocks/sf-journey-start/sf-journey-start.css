@@ -1,0 +1,7 @@
+.sf-journey-start-container {
+  background-color: lightgray;
+}
+
+.sf-journey-start > div:not(.active) {
+  display: none;
+}

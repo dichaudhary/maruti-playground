@@ -24,3 +24,24 @@ npm run lint
 1. Install the [AEM CLI](https://github.com/adobe/helix-cli): `npm install -g @adobe/aem-cli`
 1. Start AEM Proxy: `aem up` (opens your browser at `http://localhost:3000`)
 1. Open the `maruti-playground` directory in your favorite IDE and start coding :)
+
+
+## UI Test Cases
+
+To run UI test cases, follow the steps below:
+
+1. Install the necessary dependencies:
+
+```sh
+npm install
+```
+
+2. Set the Chrome path environment variable. Replace the path with the actual path where Google Chrome is installed on your system:
+
+```sh
+export CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+```
+3. Run the Tests:
+```sh
+npm run test
+```

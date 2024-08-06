@@ -63,28 +63,27 @@ async function loadFonts() {
 }
 
 function buildMultiStepForms(main) {
-  [
-    '.loan-application-form-step',
-  ].forEach((selector) => {
+  const multiStepForms = ['sf-journey-start'];
+  multiStepForms.forEach((form) => {
+    const formStepClassName = `${form}-step`;
+    const formStepSelector = `.${formStepClassName}`;
     // multi step forms are sections that have a least one step
-    main.querySelectorAll(`:scope > div:has(${selector})`).forEach((formSection) => {
-      const firstStep = formSection.querySelector(selector);
+    main.querySelectorAll(`:scope > div:not([data-section-status]):has(${formStepSelector})`).forEach((formSection) => {
+      const firstStep = formSection.querySelector(formStepSelector);
       const previousElement = firstStep.previousElementSibling;
-      const className = selector.substring(1);
-      const blockName = className.substring(0, selector.length - 6);
       // wrap all consecutive steps in a new block
       const steps = [];
       let step = firstStep;
       do {
-        step.classList.remove(className);
+        step.classList.remove(formStepClassName);
         wrapTextNodes(step);
         steps.push([step]);
         step = step.nextElementSibling;
-      } while (step && step.matches(selector));
+      } while (step && step.matches(formStepSelector));
       // remove any remaining out-of-order steps
-      formSection.querySelectorAll(selector).forEach((s) => s.remove());
+      formSection.querySelectorAll(formStepSelector).forEach((s) => s.remove());
       // create a new block and replace the first step with it
-      const block = buildBlock(blockName, steps);
+      const block = buildBlock(form, steps);
       if (previousElement) previousElement.after(block);
       else formSection.prepend(block);
     });
@@ -95,7 +94,7 @@ function buildMultiStepForms(main) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+export function buildAutoBlocks(main) {
   try {
     buildMultiStepForms(main);
   } catch (error) {
@@ -180,6 +179,61 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+}
+
+export function mergeImagesForArtDirection(img, imgMobile) {
+  const removeInstrumentation = (of) => {
+    const attributes = [...of.attributes].filter(
+      ({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'),
+    );
+    if (attributes.length) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const { nodeName } of attributes) of.removeAttribute(nodeName);
+      // eslint-disable-next-line max-len
+      return attributes.reduce((prev, { nodeName, nodeValue }) => ({ ...prev, [nodeName]: nodeValue }), {});
+    }
+    return null;
+  };
+  const applyDynamicInstrumentation = () => {
+    const dynamicInstrumentation = {};
+    // eslint-disable-next-line no-restricted-syntax
+    for (const entry of [[img, 'min-width: 600px'], [imgMobile]]) {
+      const [element, mediaQuery = ''] = entry;
+      const instrumentation = removeInstrumentation(element);
+      if (!instrumentation) {
+        return;
+      }
+      dynamicInstrumentation[mediaQuery] = instrumentation;
+    }
+    imgMobile.dataset.dynamicInstrumentation = JSON.stringify(dynamicInstrumentation);
+  };
+
+  if (imgMobile) {
+    const pictureMobile = imgMobile.parentElement;
+    // merge the imgMobile into the img:
+    // the sources have min-width media queries for desktop,
+    // we select the one without a media query which is for mobile
+    const pictureMobileMobileSource = pictureMobile.querySelector('source:not([media])');
+    if (pictureMobileMobileSource) {
+      const pcitureMobileSource = img.parentElement.querySelector('source:not([media])');
+      if (pcitureMobileSource) pcitureMobileSource.replaceWith(pictureMobileMobileSource);
+      else img.before(pictureMobileMobileSource);
+    } else {
+      // create a source if there are non (authoring specific case)
+      const source = document.createElement('source');
+      source.srcset = img.src;
+      source.media = '(min-width: 600px)';
+      img.before(source);
+    }
+    // the fallback image should also be the mobile one itself is also mobile so replace it
+    img.replaceWith(imgMobile);
+    // remove picture mobile
+    const p = pictureMobile.parentElement;
+    pictureMobile.remove();
+    if (p.children.length === 0 && !p.textContent.trim()) p.remove();
+    // the instrumentation depends on the viewport size, so we remove it
+    applyDynamicInstrumentation();
+  }
 }
 
 loadPage();

@@ -3,7 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "loan-application-form"
+      "sf-joureny-start"
     ]
   },
   {
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "id": "loan-application-form",
+    "id": "sf-joureny-start",
     "components": [
       "text",
       "image",

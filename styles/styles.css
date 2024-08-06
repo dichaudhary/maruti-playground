@@ -21,9 +21,11 @@
   --heading-blue-color: #164b91;
   --grey-color: #959695;
 
-
-  /* fonts */
-  --body-font-family: lato, roboto-fallback;
+ /* fonts */
+  --body-font-family: "Lato", roboto-fallback;
+  --tertiary-light-grey: #f2f2f2;
+  --tertiary-medium-grey: #b2b2b2;
+  --tertiary-black: #000;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
@@ -209,6 +211,10 @@ main .section {
   padding: 64px 16px;
 }
 
+main .section.image-carousel-container {
+  padding: 0;
+}
+
 @media (width >= 600px) {
   main .section {
     padding: 64px 32px;
@@ -221,6 +227,13 @@ main .section {
     margin: auto;
   }
 }
+
+@media (width >= 900px) {
+  .section > .image-carousel-wrapper {
+    max-width: 100%;
+  }
+}
+
 
 /* section metadata */
 main .section.light,
