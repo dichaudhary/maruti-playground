@@ -60,6 +60,14 @@ export default async function decorate(block) {
   const newDiv = document.createElement('div');
   newDiv.classList.add('jc-items');
 
+   // set background for jc-items div
+   if (Viewport.isMobile()) {
+    const backgroundDiv = newDiv;
+    const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
+    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
+    backgroundDiv.style.backgroundSize = '80% 80%';
+  }
+
   // Move the remaining divs into the new div and add the class 'jc-item-details'
   for (let i = 1; i < divs.length; i += 1) {
     const itemdiv = document.createElement('div');
@@ -108,14 +116,6 @@ export default async function decorate(block) {
 
   // Update the jcItemDetails to include the clones
   jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
-
-  // set background for jc-items div
-  if (Viewport.isMobile()) {
-    const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
-    const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
-    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-    backgroundDiv.style.backgroundSize = '80% 80%';
-  }
 
   function updateCarousel() {
     const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
