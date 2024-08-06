@@ -102,12 +102,20 @@ export default async function decorate(block) {
 
   const lastClone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
   lastClone.classList.add('clone');
-
+  lastClone.classList.add('last');
   jcItems.prepend(lastClone);
   jcItems.appendChild(firstClone);
 
   // Update the jcItemDetails to include the clones
   jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
+
+  // set background for jc-items div
+  if (Viewport.isMobile()) {
+    const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
+    const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
+    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
+    backgroundDiv.style.backgroundSize = '80% 80%';
+  }
 
   function updateCarousel() {
     const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
@@ -133,8 +141,10 @@ export default async function decorate(block) {
       jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     }
     setTimeout(() => {
-      jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
+      jcItems.style.transition = 'transform 0.25s ease-in-out 0s'; // Add the transition effect
       currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+      lastClone.style.display = 'block';
+      firstClone.style.display = 'block';
       updateCarousel();
     }, 0);
   });
@@ -146,15 +156,17 @@ export default async function decorate(block) {
       jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
     }
     setTimeout(() => {
-      jcItems.style.transition = 'transform 0.4s ease-in-out'; // Add the transition effect
+      jcItems.style.transition = 'transform 0.25s ease-in-out 0s'; // Add the transition effect
       currentIndex = (currentIndex + 1) % jcItemDetails.length;
+      firstClone.style.display = 'block';
+      lastClone.style.display = 'block';
       updateCarousel();
     }, 0);
   });
 
   function updateView() {
-    const clones = block.querySelectorAll('.clone'); // Use querySelectorAll for NodeList
-    const arrowDiv = document.querySelector('.arrow-div'); // Assuming `arrowDiv` is the container for arrows
+    const clones = block.querySelectorAll('.clone');
+    const arrowDiv = document.querySelector('.arrow-div');
 
     // Check device type
     Viewport.getDeviceType();
@@ -174,6 +186,16 @@ export default async function decorate(block) {
       arrowDiv.style.display = 'none';
     }
     updateCarousel();
+
+    if (Viewport.isMobile()) {
+      const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
+      const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
+      backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
+      backgroundDiv.style.backgroundSize = '80% 80%';
+    } else {
+      const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
+      backgroundDiv.style.background = 'none';
+    }
   }
   // Add event listener for window resize
   window.addEventListener('resize', updateView);
