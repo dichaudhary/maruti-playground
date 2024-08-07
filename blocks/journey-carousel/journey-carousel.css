@@ -84,7 +84,7 @@
     display: none;
 }
 
-@media (width >=768px) {
+@media (width >=48rem) {
     .journey-carousel {
         display: flex;
         flex-direction: row;
@@ -191,7 +191,7 @@
     }
 }
 
-@media (width >=1024px) {
+@media (width >=64rem) {
     .section.journey-carousel-container {
         padding: 3.125rem 0;
     }

@@ -39,7 +39,6 @@ const Viewport = (function initializeViewport() {
 
 export default async function decorate(block) {
   const divs = block.querySelectorAll(':scope > div');
-
   // Add the class to the first div
   if (divs.length > 0) {
     divs[0].classList.add('jc-details');
@@ -57,12 +56,12 @@ export default async function decorate(block) {
   const caraousalDiv = document.createElement('div');
   caraousalDiv.classList.add('carousel-div');
   block.appendChild(caraousalDiv);
-  const newDiv = document.createElement('div');
-  newDiv.classList.add('jc-items');
+  const itemsDiv = document.createElement('div');
+  itemsDiv.classList.add('jc-items');
 
-   // set background for jc-items div
-   if (Viewport.isMobile()) {
-    const backgroundDiv = newDiv;
+  // set background for jc-items div
+  if (Viewport.isMobile()) {
+    const backgroundDiv = itemsDiv;
     const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
     backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
     backgroundDiv.style.backgroundSize = '80% 80%';
@@ -83,13 +82,12 @@ export default async function decorate(block) {
       firstArrowdiv.classList.add('jc-arrow');
       itemdiv.appendChild(firstArrowdiv);
     }
-    newDiv.appendChild(itemdiv);
+    itemsDiv.appendChild(itemdiv);
   }
 
   // Add the new div element to the block
-  caraousalDiv.appendChild(newDiv);
+  caraousalDiv.appendChild(itemsDiv);
 
-  // Add the carousel functionality
   const navDiv = document.createElement('div');
   navDiv.classList.add('arrow-div');
   const leftArrow = document.createElement('div');
