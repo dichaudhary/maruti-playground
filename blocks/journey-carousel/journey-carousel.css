@@ -30,6 +30,14 @@
     color: var(--heading-blue-color);
 }
 
+.journey-carousel .jc-item-details h3+p {
+    width: 90%;
+    color: var(--grey-color);
+    font-weight: var(--font-weight-small);
+    font-size: var(--heading-font-size-xxs);
+    margin-top: var(--space-5px);
+}
+
 .journey-carousel .jc-items {
     vertical-align: middle;
     margin: 0;
@@ -69,13 +77,7 @@
     margin-bottom: 0;
 }
 
-.journey-carousel .jc-item-details h3+p {
-    width: 100%;
-    color: var(--grey-color);
-    font-weight: var(--font-weight-small);
-    font-size: var(--heading-font-size-xxs);
-    margin-top: var(--space-5px);
-}
+
 
 .journey-carousel .jc-details picture,
 .journey-carousel .jc-arrow,
