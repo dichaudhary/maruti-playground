@@ -67,7 +67,7 @@ function buildMultiStepForms(main) {
   multiStepForms.forEach((form) => {
     const formStepClassName = `${form}-step`;
     const formStepSelector = `.${formStepClassName}`;
-    // multi step forms are sections that have a least one step
+    // multi-step forms are sections that have a least one step
     main.querySelectorAll(`:scope > div:not([data-section-status]):has(${formStepSelector})`).forEach((formSection) => {
       const firstStep = formSection.querySelector(formStepSelector);
       const previousElement = firstStep.previousElementSibling;
