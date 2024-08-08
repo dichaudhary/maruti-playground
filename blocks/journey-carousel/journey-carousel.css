@@ -53,6 +53,7 @@
     flex-direction: column;
     width: 60%;
     align-items: start;
+    height:13rem;
 }
 
 .journey-carousel .jc-items>*:nth-child(odd) {
@@ -61,6 +62,7 @@
     flex-direction: column;
     width: 60%;
     align-items: start;
+    height:13rem;
 }
 
 .journey-carousel .jc-item-details img {
@@ -76,8 +78,6 @@
     margin-top: 0;
     margin-bottom: 0;
 }
-
-
 
 .journey-carousel .jc-details picture,
 .journey-carousel .jc-arrow,

@@ -75,7 +75,7 @@
 }
 
 @font-face {
-  font-family: Lato, roboto-fallback;
+  font-family: roboto-fallback;
   size-adjust: 100.06%;
   ascent-override: 95%;
   src: local('Arial');
