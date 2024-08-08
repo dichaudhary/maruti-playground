@@ -2,7 +2,7 @@
     "aemTierType": [
         "delivery"
     ],
-    "apiKey": "aemcs-maruti-assetselector",
+    "apiKey": "asset_search_service",
     "repoNames": [
       "delivery-p130360-e1403848.adobeaemcloud.com"
     ],
