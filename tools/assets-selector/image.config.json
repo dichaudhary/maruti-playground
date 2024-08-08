@@ -1,10 +1,12 @@
 {
     "aemTierType": [
-        "delivery"
+        "delivery",
+        "author"
     ],
-    "apiKey": "asset_search_service",
+    "apiKey": "aemcs-maruti-assetselector",
     "repoNames": [
-      "delivery-p130360-e1403848.adobeaemcloud.com"
+        "author-p130360-e1403848.adobeaemcloud.com",
+        "delivery-p130360-e1403848.adobeaemcloud.com"
     ],
     "preferredDimensions":{
         "minWidth": 500,
