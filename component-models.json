@@ -382,7 +382,31 @@
         "name": "content_description",
         "value": "",
         "label": "Description"
+      },
+      {
+        "id": "custom-asset-one",
+        "fields": [
+          {
+            "component": "custom-asset-namespace:custom-asset",
+            "name": "image",
+            "label": "Image",
+            "configUrl": "https://dmassetpicker-maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
+            "valueType": "string"
+          },
+          {
+            "component": "custom-asset-namespace:custom-asset-mimetype",
+            "valueType": "string",
+            "name": "imageMimeType"
+          },
+          {
+            "component": "text",
+            "name": "imageAlt",
+            "label": "Alt Text",
+            "valueType": "string"
+          }
+        ]
       }
+
     ]
   }
 ]
