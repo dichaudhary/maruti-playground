@@ -3,7 +3,7 @@
         "delivery",
         "author"
     ],
-    "apiKey": "aemcs-maruti-assetselector",
+    "apiKey": "asset_search_service",
     "repoNames": [
         "author-p130360-e1403848.adobeaemcloud.com",
         "delivery-p130360-e1403848.adobeaemcloud.com"
