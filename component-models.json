@@ -390,7 +390,7 @@
             "component": "custom-asset-namespace:custom-asset",
             "name": "image",
             "label": "Image",
-            "configUrl": "https://dmassetpicker-maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
+            "configUrl": "https://dmassetpicker--maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
             "valueType": "string"
           },
           {
