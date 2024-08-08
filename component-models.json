@@ -412,7 +412,7 @@
         "component": "custom-asset-namespace:custom-asset",
         "name": "image",
         "label": "Image",
-        "configUrl": "https://dmassetpicker--maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
+        "configUrl": "https://raw.githubusercontent.com/nitinja/xwalk-test-gems/main/tools/assets-selector/image.config.json",
         "valueType": "string"
       },
       {
