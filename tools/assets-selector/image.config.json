@@ -7,5 +7,11 @@
     "repoNames": [
         "author-p130360-e1403848.adobeaemcloud.com",
         "delivery-p130360-e1403848.adobeaemcloud.com"
+    ],
+    "copyMode": [
+        {
+        "mimeType": "image/*",
+        "value": "use-alt-text"
+        }
     ]
 }
