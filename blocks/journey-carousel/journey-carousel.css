@@ -81,8 +81,7 @@
 
 .journey-carousel .jc-details picture,
 .journey-carousel .jc-arrow,
-.journey-carousel .arrow-div,
-.journey-carousel .jc-items .jc-item.clone {
+.journey-carousel .arrow-div{
     display: none;
 }
 
@@ -136,8 +135,7 @@
         clip-path: inset(0 0 0 50%);
     }
 
-    .journey-carousel .jc-details>div>p:first-child ,
-    .journey-carousel .jc-item.last.clone .jc-arrow:first-of-type{
+    .journey-carousel .jc-details>div>p:first-child {
         display: none;
     }
 
@@ -207,8 +205,7 @@
         margin: 0 1.875rem;
     }
 
-    .journey-carousel .arrow-div,
-    .journey-carousel .jc-items .jc-item.clone {
+    .journey-carousel .arrow-div{
         display: none;
     }
 

@@ -59,7 +59,7 @@ export default async function decorate(block) {
   const itemsDiv = document.createElement('div');
   itemsDiv.classList.add('jc-items');
 
-  // set background for jc-items div
+  // set background for jc-items div for mobile view
   if (Viewport.isMobile()) {
     const backgroundDiv = itemsDiv;
     const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
@@ -84,8 +84,6 @@ export default async function decorate(block) {
     }
     itemsDiv.appendChild(itemdiv);
   }
-
-  // Add the new div element to the block
   caraousalDiv.appendChild(itemsDiv);
 
   const navDiv = document.createElement('div');
@@ -100,86 +98,39 @@ export default async function decorate(block) {
 
   const jcItems = block.querySelector('.jc-items');
   let jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
-  let currentIndex = 1; // Start from the second item (the first visible item)
-
-  // Clone the first and last item
-  const firstClone = jcItemDetails[0].cloneNode(true);
-  firstClone.classList.add('clone');
-
-  const lastClone = jcItemDetails[jcItemDetails.length - 1].cloneNode(true);
-  lastClone.classList.add('clone');
-  lastClone.classList.add('last');
-  jcItems.prepend(lastClone);
-  jcItems.appendChild(firstClone);
-
-  // Update the jcItemDetails to include the clones
-  jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
-
+  let currentIndex = 0;
   function updateCarousel() {
     const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
     jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
   }
-  // Update the carousel when the transition ends
-  jcItems.addEventListener('transitionend', () => {
-    if (jcItemDetails[currentIndex] === firstClone) {
-      jcItems.style.transition = 'none'; // Remove the transition effect
-      currentIndex = 1; // Move to the first item
-      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
-    } else if (jcItemDetails[currentIndex] === lastClone) {
-      jcItems.style.transition = 'none'; // Remove the transition effect
-      currentIndex = jcItemDetails.length - 2; // Move to the last item
-      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
-    }
-  });
+
 
   leftArrow.addEventListener('click', () => {
     if (currentIndex <= 0) {
-      jcItems.style.transition = 'none'; // Remove the transition effect
       currentIndex = jcItemDetails.length - 2; // Move to the last item
-      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
-    }
-    setTimeout(() => {
-      jcItems.style.transition = 'transform 0.25s ease-in-out 0s'; // Add the transition effect
+    } else {
       currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
-      lastClone.style.display = 'block';
-      firstClone.style.display = 'block';
-      updateCarousel();
-    }, 0);
+    }
+    updateCarousel();
   });
 
   rightArrow.addEventListener('click', () => {
-    if (currentIndex >= jcItemDetails.length - 1) {
-      jcItems.style.transition = 'none'; // Remove the transition effect
-      currentIndex = 1; // Move to the first item
-      jcItems.style.transform = `translateX(-${(currentIndex * (jcItemDetails[0]?.offsetWidth || 0))}px)`;
-    }
-    setTimeout(() => {
-      jcItems.style.transition = 'transform 0.25s ease-in-out 0s'; // Add the transition effect
+    if (currentIndex >= jcItemDetails.length - 2) {
+      currentIndex = 0; // Move to the first item
+    } else {
       currentIndex = (currentIndex + 1) % jcItemDetails.length;
-      firstClone.style.display = 'block';
-      lastClone.style.display = 'block';
-      updateCarousel();
-    }, 0);
+    }
+    updateCarousel();
   });
 
   function updateView() {
-    const clones = block.querySelectorAll('.clone');
     const arrowDiv = document.querySelector('.arrow-div');
-
-    // Check device type
     Viewport.getDeviceType();
 
     if (Viewport.isTablet()) {
-      clones.forEach((item) => {
-        item.style.display = 'block';
-      });
       arrowDiv.style.display = 'block';
-      currentIndex = 1;
+      currentIndex = 0;
     } else {
-      // Desktop screens
-      clones.forEach((item) => {
-        item.style.display = 'none';
-      });
       currentIndex = 0;
       arrowDiv.style.display = 'none';
     }
