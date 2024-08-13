@@ -112,9 +112,9 @@ function handleSelection(event) {
 
 
     if (block && block.matches('.journey-carousel')) {
-      
-      const currentIndex = Array.from(block.querySelectorAll('.jc-item-details')).indexOf(element);
-      const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
+      const jcitemDetails = Array.from(block.querySelectorAll('.jc-item-details'));
+      const currentIndex = jcitemDetails.indexOf(element);
+      const itemWidth = jcitemDetails[0]?.offsetWidth || 0; // Get the width of one item
       const jcItems = block.querySelector('.jc-items');
       jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
     }
