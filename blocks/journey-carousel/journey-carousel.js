@@ -58,6 +58,23 @@ function updateView() {
   }
 }
 
+function handleSelection({ detail: { prop, element } }) { 
+    const block = element.parentElement?.closest('.block') || element?.closest('.block');
+    if(block && block.querySelector('.arrow-div')) {
+    const jcitemDetails = Array.from(block.querySelectorAll('.jc-item-details'));
+    const currentIndex = jcitemDetails.indexOf(element);
+    // If the current index is the last item, move to the second last item 
+    //so that second last and last item show up on the screen
+    if(currentIndex === jcitemDetails.length - 1) {
+      currentIndex = jcitemDetails.length - 2;
+    }
+    const itemWidth = jcitemDetails[0]?.offsetWidth || 0;
+    const jcItems = block.querySelector('.jc-items');
+    jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+  }
+}
+
+
 function addNavigationDiv(caraousalDiv) {
   const navDiv = document.createElement('div');
   navDiv.classList.add('arrow-div');
@@ -97,6 +114,7 @@ function addNavigationDiv(caraousalDiv) {
 }
 
 export default async function decorate(block) {
+  block.classList.add('dynamic-block');
   const divs = block.querySelectorAll(':scope > div');
   // Add the class to the first div
   if (divs.length > 0) {
@@ -145,6 +163,8 @@ export default async function decorate(block) {
   }
   caraousalDiv.appendChild(itemsDiv);
   addNavigationDiv(caraousalDiv);
+  //add listetener for selection event in Universal Editor 
+  block.addEventListener('navigate-to-route', handleSelection);
   // Add event listener for window resize
   window.addEventListener('resize', updateView);
 }
