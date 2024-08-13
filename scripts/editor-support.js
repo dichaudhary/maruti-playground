@@ -126,7 +126,6 @@ function handleSelection(event) {
   }
 }
 
-
 function attachEventListners(main) {
   [
     'aue:content-patch',

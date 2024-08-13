@@ -58,14 +58,14 @@ function updateView() {
   }
 }
 
-function handleSelection({ detail: { prop, element } }) {
+function handleSelection({ detail: { element } }) {
   const block = element.parentElement?.closest('.block') || element?.closest('.block');
-  //check if it is a carousel view
+  // check if it is a carousel view
   if (block && block.querySelector('.arrow-div').style.display === 'block') {
     const jcitemDetails = Array.from(block.querySelectorAll('.jc-item-details'));
-    const currentIndex = jcitemDetails.indexOf(element);
-    // If the current index is the last item, move to the second last item 
-    //so that second last and last item show up on the screen
+    let currentIndex = jcitemDetails.indexOf(element);
+    // If the current index is the last item, move to the second last item
+    // so that second last and last item show up on the screen
     if (currentIndex === jcitemDetails.length - 1) {
       currentIndex = jcitemDetails.length - 2;
     }
@@ -163,7 +163,7 @@ export default async function decorate(block) {
   }
   caraousalDiv.appendChild(itemsDiv);
   addNavigationDiv(caraousalDiv);
-  //add listetener for selection event in Universal Editor 
+  // add listetener for selection event in Universal Editor
   block.addEventListener('navigate-to-route', handleSelection);
   // Add event listener for window resize
   window.addEventListener('resize', updateView);

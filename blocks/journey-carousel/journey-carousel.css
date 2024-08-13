@@ -38,6 +38,8 @@
     -webkit-font-smoothing: antialiased;
     font-size: var(--heading-font-size-xxs);
     margin-top: var(--space-5px);
+    margin-bottom: 0;
+    line-height: 1.25rem;
 }
 
 .journey-carousel .jc-items {
@@ -78,7 +80,7 @@
     text-transform: uppercase;
     font-size: 1rem;
     text-align: left;
-    margin-top: 0;
+    margin-top: var(--space-15px);
     margin-bottom: 0;
 }
 
