@@ -110,6 +110,15 @@ function handleSelection(event) {
     const element = document.querySelector(`[data-aue-resource="${resource}"]`);
     const block = element.parentElement?.closest('.block') || element?.closest('.block');
 
+
+    if (block && block.matches('.journey-carousel')) {
+      
+      const currentIndex = Array.from(block.querySelectorAll('.jc-item-details')).indexOf(element);
+      const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
+      const jcItems = block.querySelector('.jc-items');
+      jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+
     if (block?.dataset.activeRoute) {
       // if the block does some routing we notify it about the new route based on the selection
       // the children of the block are the containers for the route, the first class name

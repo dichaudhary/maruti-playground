@@ -72,7 +72,6 @@ function addNavigationDiv(caraousalDiv) {
   const jcItems = caraousalDiv.querySelector('.jc-items');
   const jcItemDetails = Array.from(caraousalDiv.querySelectorAll('.jc-item'));
   let currentIndex = 0;
-
   function updateCarousel() {
     const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
     jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
