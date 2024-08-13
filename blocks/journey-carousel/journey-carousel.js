@@ -22,7 +22,6 @@ const Viewport = (function initializeViewport() {
   function isDesktop() {
     return deviceType === 'Desktop';
   }
-
   function isMobile() {
     return deviceType === 'Mobile';
   }
@@ -36,6 +35,67 @@ const Viewport = (function initializeViewport() {
     isTablet,
   };
 }());
+
+function updateView() {
+  const arrowDiv = document.querySelector('.journey-carousel .arrow-div');
+  Viewport.getDeviceType();
+  if (Viewport.isTablet()) {
+    arrowDiv.style.display = 'block';
+  } else {
+    arrowDiv.style.display = 'none';
+  }
+  const jcItems = document.querySelector('.journey-carousel .jc-items');
+  jcItems.style.transform = 'translateX(0px)';
+
+  if (Viewport.isMobile()) {
+    const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
+    const pictureDivs = document.querySelectorAll('.journey-carousel .jc-details picture');
+    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
+    backgroundDiv.style.backgroundSize = '80% 80%';
+  } else {
+    const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
+    backgroundDiv.style.background = 'none';
+  }
+}
+
+function addNavigationDiv(caraousalDiv) {
+  const navDiv = document.createElement('div');
+  navDiv.classList.add('arrow-div');
+  const leftArrow = document.createElement('div');
+  leftArrow.classList.add('left-arrow');
+  const rightArrow = document.createElement('div');
+  rightArrow.classList.add('right-arrow');
+  navDiv.appendChild(leftArrow);
+  navDiv.appendChild(rightArrow);
+  caraousalDiv.appendChild(navDiv);
+
+  const jcItems = caraousalDiv.querySelector('.jc-items');
+  const jcItemDetails = Array.from(caraousalDiv.querySelectorAll('.jc-item'));
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
+    jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+  }
+
+  leftArrow.addEventListener('click', () => {
+    if (currentIndex <= 0) {
+      currentIndex = jcItemDetails.length - 2; // Move to the last item
+    } else {
+      currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
+    }
+    updateCarousel();
+  });
+
+  rightArrow.addEventListener('click', () => {
+    if (currentIndex >= jcItemDetails.length - 2) {
+      currentIndex = 0; // Move to the first item
+    } else {
+      currentIndex = (currentIndex + 1) % jcItemDetails.length;
+    }
+    updateCarousel();
+  });
+}
 
 export default async function decorate(block) {
   const divs = block.querySelectorAll(':scope > div');
@@ -85,67 +145,7 @@ export default async function decorate(block) {
     itemsDiv.appendChild(itemdiv);
   }
   caraousalDiv.appendChild(itemsDiv);
-
-  const navDiv = document.createElement('div');
-  navDiv.classList.add('arrow-div');
-  const leftArrow = document.createElement('div');
-  leftArrow.classList.add('left-arrow');
-  const rightArrow = document.createElement('div');
-  rightArrow.classList.add('right-arrow');
-  navDiv.appendChild(leftArrow);
-  navDiv.appendChild(rightArrow);
-  caraousalDiv.appendChild(navDiv);
-
-  const jcItems = block.querySelector('.jc-items');
-  let jcItemDetails = Array.from(block.querySelectorAll('.jc-item'));
-  let currentIndex = 0;
-  function updateCarousel() {
-    const itemWidth = jcItemDetails[0]?.offsetWidth || 0; // Get the width of one item
-    jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-  }
-
-
-  leftArrow.addEventListener('click', () => {
-    if (currentIndex <= 0) {
-      currentIndex = jcItemDetails.length - 2; // Move to the last item
-    } else {
-      currentIndex = (currentIndex - 1 + jcItemDetails.length) % jcItemDetails.length;
-    }
-    updateCarousel();
-  });
-
-  rightArrow.addEventListener('click', () => {
-    if (currentIndex >= jcItemDetails.length - 2) {
-      currentIndex = 0; // Move to the first item
-    } else {
-      currentIndex = (currentIndex + 1) % jcItemDetails.length;
-    }
-    updateCarousel();
-  });
-
-  function updateView() {
-    const arrowDiv = document.querySelector('.arrow-div');
-    Viewport.getDeviceType();
-
-    if (Viewport.isTablet()) {
-      arrowDiv.style.display = 'block';
-      currentIndex = 0;
-    } else {
-      currentIndex = 0;
-      arrowDiv.style.display = 'none';
-    }
-    updateCarousel();
-
-    if (Viewport.isMobile()) {
-      const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
-      const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
-      backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-      backgroundDiv.style.backgroundSize = '80% 80%';
-    } else {
-      const backgroundDiv = block.querySelector('.journey-carousel .jc-items');
-      backgroundDiv.style.background = 'none';
-    }
-  }
+  addNavigationDiv(caraousalDiv);
   // Add event listener for window resize
   window.addEventListener('resize', updateView);
 }
