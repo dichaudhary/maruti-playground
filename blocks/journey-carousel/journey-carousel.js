@@ -58,14 +58,15 @@ function updateView() {
   }
 }
 
-function handleSelection({ detail: { prop, element } }) { 
-    const block = element.parentElement?.closest('.block') || element?.closest('.block');
-    if(block && block.querySelector('.arrow-div')) {
+function handleSelection({ detail: { prop, element } }) {
+  const block = element.parentElement?.closest('.block') || element?.closest('.block');
+  //check if it is a carousel view
+  if (block && block.querySelector('.arrow-div').style.display === 'block') {
     const jcitemDetails = Array.from(block.querySelectorAll('.jc-item-details'));
     const currentIndex = jcitemDetails.indexOf(element);
     // If the current index is the last item, move to the second last item 
     //so that second last and last item show up on the screen
-    if(currentIndex === jcitemDetails.length - 1) {
+    if (currentIndex === jcitemDetails.length - 1) {
       currentIndex = jcitemDetails.length - 2;
     }
     const itemWidth = jcitemDetails[0]?.offsetWidth || 0;
@@ -73,7 +74,6 @@ function handleSelection({ detail: { prop, element } }) {
     jcItems.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
   }
 }
-
 
 function addNavigationDiv(caraousalDiv) {
   const navDiv = document.createElement('div');
