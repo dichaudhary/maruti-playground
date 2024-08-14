@@ -109,15 +109,18 @@ function handleSelection(event) {
   if (resource) {
     const element = document.querySelector(`[data-aue-resource="${resource}"]`);
     const block = element.parentElement?.closest('.block') || element?.closest('.block');
-
-    if (block?.dataset.activeRoute) {
-      // if the block does some routing we notify it about the new route based on the selection
-      // the children of the block are the containers for the route, the first class name
-      // the route name
-      const newRoute = [...block.children].find((child) => child.contains(element));
-      if (newRoute) {
-        const [newRouteName] = newRoute.className.split(' ');
-        block.dispatchEvent(new CustomEvent('navigate-to-route', { detail: { route: newRouteName } }));
+    if (block && block.matches('.dynamic-block')) {
+      if (block?.dataset.activeRoute) {
+        // if the block does some routing we notify it about the new route based on the selection
+        // the children of the block are the containers for the route, the first class name
+        // the route name
+        const newRoute = [...block.children].find((child) => child.contains(element));
+        if (newRoute) {
+          const [newRouteName] = newRoute.className.split(' ');
+          block.dispatchEvent(new CustomEvent('navigate-to-route', { detail: { route: newRouteName } }));
+        }
+      } else {
+        block.dispatchEvent(new CustomEvent('navigate-to-route', { detail: { prop: detail.prop, element } }));
       }
     }
   }
