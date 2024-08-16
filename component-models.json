@@ -67,16 +67,14 @@
     "id": "image-slide",
     "fields": [
       {
-        "component": "custom-asset-namespace:custom-asset",
-        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
+        "component": "reference",
         "valueType": "string",
         "name": "image_desktop",
         "label": "Image Desktop",
         "multi": false
       },
       {
-        "component": "custom-asset-namespace:custom-asset",
-        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
+        "component": "reference",
         "valueType": "string",
         "name": "image_mobile",
         "label": "Image (mobile)",
