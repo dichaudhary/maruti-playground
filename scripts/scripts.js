@@ -107,7 +107,7 @@ export function buildAutoBlocks(main) {
 
 
 function decorateDeliveryAssets (main) {
-  const anchors = Array.from(element.getElementsByTagName('a'));
+  const anchors = Array.from(main.getElementsByTagName('a'));
   const deliveryUrls = anchors.filter((anchor) => anchor.textContent.includes('delivery'));
 
   if (deliveryUrls.length > 0) {
