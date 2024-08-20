@@ -393,15 +393,15 @@
         "component": "custom-asset-namespace:custom-asset",
         "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
-        "name": "image",
+        "name": "common-image",
         "label": "Image"
       },
       {
         "component": "custom-asset-namespace:custom-asset",
         "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
-        "name": "image_mobile",
-        "label": "Image_mobile"
+        "name": "common_background_image",
+        "label": "background"
       },
       {
         "component": "custom-asset-namespace:custom-asset-mimetype",
