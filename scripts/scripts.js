@@ -12,6 +12,7 @@ import {
   loadCSS,
   wrapTextNodes,
   buildBlock,
+  createOptimizedPicture,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -103,6 +104,21 @@ export function buildAutoBlocks(main) {
   }
 }
 
+
+
+function decorateDeliveryAssets (main) {
+  const anchors = Array.from(element.getElementsByTagName('a'));
+  const deliveryUrls = anchors.filter((anchor) => anchor.textContent.includes('delivery'));
+
+  if (deliveryUrls.length > 0) {
+    deliveryUrls.forEach((anchor) => {
+      const deliveryUrl = anchor.textContent;
+      const pcture = createOptimizedPicture(deliveryUrl);
+      anchor.replaceWith(picture);
+    });
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -114,6 +130,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateDeliveryAssets(main);
   decorateBlocks(main);
 }
 

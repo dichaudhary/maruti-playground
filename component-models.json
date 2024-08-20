@@ -406,11 +406,6 @@
       {
         "component": "custom-asset-namespace:custom-asset-mimetype",
         "valueType": "string",
-        "name": "common_background_imageMimeType"
-      },
-      {
-        "component": "custom-asset-namespace:custom-asset-mimetype",
-        "valueType": "string",
         "name": "common-imageMimeType"
       },
       {
