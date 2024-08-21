@@ -67,14 +67,16 @@
     "id": "image-slide",
     "fields": [
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_desktop",
         "label": "Image Desktop",
         "multi": false
       },
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_mobile",
         "label": "Image (mobile)",
@@ -83,7 +85,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "image_mobileAlt",
+        "name": "image_mobileTitle",
         "value": "Default alt",
         "label": "Alt Text"
       }
