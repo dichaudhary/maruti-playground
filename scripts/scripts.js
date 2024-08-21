@@ -113,7 +113,7 @@ function decorateDeliveryAssets (main) {
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.textContent;
-      const pcture = createOptimizedPicture(deliveryUrl);
+      const picture = createOptimizedPicture(deliveryUrl);
       anchor.replaceWith(picture);
     });
   }
