@@ -81,6 +81,16 @@
         "multi": false
       },
       {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "image_desktopMimeType"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "image_mobileMimeType"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "image_mobileAlt",
