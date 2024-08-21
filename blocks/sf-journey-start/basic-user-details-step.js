@@ -1,18 +1,35 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable import/no-unresolved */
 import { html } from '../../scripts/vendor/htm-preact.js';
-import { useContext, useRef } from '../../scripts/vendor/preact-hooks.js';
+import { useContext, useRef, useState } from '../../scripts/vendor/preact-hooks.js';
 import { hnodeAs, MultiStepFormContext } from './multi-step-form.js';
 
 function BasicUserDetailsStep({ config }) {
   const { intro, guidance, disclaimer, submitButton } = config;
   const { updateFormState } = useContext(MultiStepFormContext);
+  const [showError, setShowError] = useState(false);
   const formRef = useRef();
 
+  const isValidEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   const handleOnSubmit = (e) => {
-    const formEntries = Object.fromEntries([...new FormData(formRef.current)]);
-    updateFormState((currentState) => ({ ...currentState, ...formEntries }));
     e.preventDefault();
+    const formEntries = Object.fromEntries([...new FormData(formRef.current)]);
+    const { email } = formEntries;
+    if (!isValidEmail(email)) {
+      setShowError(true);
+      return;
+    }
+    updateFormState((currentState) => ({ ...currentState, ...formEntries }));
+    setShowError(false);
+    /**
+     * handle the form submit and next steps
+     */
+    // Redirect to the specified URL
+    window.location.href = 'https://www.marutisuzuki.com/more-from-us/finance';
   };
 
   return html`
@@ -29,6 +46,9 @@ function BasicUserDetailsStep({ config }) {
             ${hnodeAs(submitButton, 'span')}
           </button>
         </div>
+        <div class=${`error-form ${showError ? 'active' : ''}`}>
+          <p>*Please check the fields again</p>
+        </div>
         <div class="basic-user-details-step-guidance">
           ${guidance}
         </div>
@@ -36,6 +56,7 @@ function BasicUserDetailsStep({ config }) {
           <input type="checkbox" name="disclaimer" value="accepted" />
           ${disclaimer}
         </div>
+        
       </form>
     `;
 }

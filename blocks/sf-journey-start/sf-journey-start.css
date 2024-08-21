@@ -5,3 +5,12 @@
 .sf-journey-start > div:not(.active) {
   display: none;
 }
+
+.sf-journey-start .error-form {
+  color: red;
+  display: none;
+}
+
+.sf-journey-start .error-form.active {
+  display:block;
+}
