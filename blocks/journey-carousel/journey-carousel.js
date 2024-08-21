@@ -50,11 +50,11 @@ function updateView() {
   if (Viewport.isMobile()) {
     const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
     const pictureDivs = document.querySelectorAll('.journey-carousel .jc-details picture');
-    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-    backgroundDiv.style.backgroundSize = '80% 80%';
+    const imageUrl = pictureDivs[0].querySelector('img').src;
+    backgroundDiv.style.backgroundImage = `url(${imageUrl})`;
   } else {
     const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
-    backgroundDiv.style.background = 'none';
+    backgroundDiv.style.backgroundImage = 'none';
   }
 }
 
@@ -138,10 +138,9 @@ export default async function decorate(block) {
 
   // set background for jc-items div for mobile view
   if (Viewport.isMobile()) {
-    const backgroundDiv = itemsDiv;
     const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
-    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-    backgroundDiv.style.backgroundSize = '80% 80%';
+    const imageUrl = pictureDivs[0].querySelector('img').src;
+    itemsDiv.style.backgroundImage = `url(${imageUrl})`;
   }
 
   // Move the remaining divs into the new div and add the class 'jc-item-details'
