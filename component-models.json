@@ -67,14 +67,14 @@
     "id": "image-slide",
     "fields": [
       {
-        "component": "reference",
+       "configUrl": "https://dmassetpicker--maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_desktop",
         "label": "Image Desktop",
         "multi": false
       },
       {
-        "component": "reference",
+        "configUrl": "https://dmassetpicker--maruti-playground--buuhuu.hlx.page/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_mobile",
         "label": "Image (mobile)",
