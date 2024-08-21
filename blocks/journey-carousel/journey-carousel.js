@@ -1,40 +1,4 @@
-const Viewport = (function initializeViewport() {
-  let deviceType;
-
-  const breakpoints = {
-    mobile: window.matchMedia('(max-width: 47.99rem)'),
-    tablet: window.matchMedia('(min-width: 48rem) and (max-width: 63.99rem)'),
-    desktop: window.matchMedia('(min-width: 64rem)'),
-  };
-
-  function getDeviceType() {
-    if (breakpoints.mobile.matches) {
-      deviceType = 'Mobile';
-    } else if (breakpoints.tablet.matches) {
-      deviceType = 'Tablet';
-    } else {
-      deviceType = 'Desktop';
-    }
-    return deviceType;
-  }
-  getDeviceType();
-
-  function isDesktop() {
-    return deviceType === 'Desktop';
-  }
-  function isMobile() {
-    return deviceType === 'Mobile';
-  }
-  function isTablet() {
-    return deviceType === 'Tablet';
-  }
-  return {
-    getDeviceType,
-    isDesktop,
-    isMobile,
-    isTablet,
-  };
-}());
+import {Viewport} from '../../scripts/block-utils.js';
 
 function updateView() {
   const arrowDiv = document.querySelector('.journey-carousel .arrow-div');
@@ -115,7 +79,7 @@ function addNavigationDiv(caraousalDiv) {
 
 export default async function decorate(block) {
   block.classList.add('dynamic-block');
-  const divs = block.querySelectorAll(':scope > div');
+  const divs = [...block.children];
   // Add the class to the first div
   if (divs.length > 0) {
     divs[0].classList.add('jc-details');
