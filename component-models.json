@@ -410,14 +410,8 @@
       },
       {
         "component": "text",
-        "name": "common-imageAlt",
-        "label": "Alt Text (Image)",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "common_background_imageAlt",
-        "label": "Alt Text ( Background Image)",
+        "name": "imageAlt",
+        "label": "Alt Text",
         "valueType": "string"
       }
     ]
