@@ -326,46 +326,36 @@ function createOptimizedPicture(
 ) {
   const url = new URL(src, window.location.href);
   const picture = document.createElement('picture');
-  const ext = url.pathname.substring(url.pathname.lastIndexOf('.') + 1);
+  const { pathname } = url;
+  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
 
   // webp
   breakpoints.forEach((br) => {
     const source = document.createElement('source');
-    const webpUrl = new URL(url.href); // Clone original URL
-    webpUrl.searchParams.set('width', br.width);
-    webpUrl.searchParams.set('format', 'webp');
-    webpUrl.searchParams.set('optimize', 'medium');
-
     if (br.media) source.setAttribute('media', br.media);
     source.setAttribute('type', 'image/webp');
-    source.setAttribute('srcset', webpUrl.href);
+    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
     picture.appendChild(source);
   });
 
   // fallback
   breakpoints.forEach((br, i) => {
-    const fallbackUrl = new URL(url.href); // Clone original URL
-    fallbackUrl.searchParams.set('width', br.width);
-    fallbackUrl.searchParams.set('format', ext);
-    fallbackUrl.searchParams.set('optimize', 'medium');
-
     if (i < breakpoints.length - 1) {
       const source = document.createElement('source');
       if (br.media) source.setAttribute('media', br.media);
-      source.setAttribute('srcset', fallbackUrl.href);
+      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
       picture.appendChild(source);
     } else {
       const img = document.createElement('img');
       img.setAttribute('loading', eager ? 'eager' : 'lazy');
       img.setAttribute('alt', alt);
-      img.setAttribute('src', fallbackUrl.href);
       picture.appendChild(img);
+      img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
     }
   });
 
   return picture;
 }
-
 
 /**
  * Set template (page structure) and theme (page styles).

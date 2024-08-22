@@ -12,7 +12,6 @@ import {
   loadCSS,
   wrapTextNodes,
   buildBlock,
-  createOptimizedPicture,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -105,6 +104,63 @@ export function buildAutoBlocks(main) {
 }
 
 /**
+ * Returns a picture element with webp and fallbacks
+ * @param {string} src The image URL
+ * @param {string} [alt] The image alternative text
+ * @param {boolean} [eager] Set loading attribute to eager
+ * @param {Array} [breakpoints] Breakpoints and corresponding params (eg. width)
+ * @returns {Element} The picture element
+ */
+function createOptimizedPictureWithAbsoluteUrls(
+  src,
+  alt = '',
+  eager = false,
+  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }],
+) {
+  const url = new URL(src, window.location.href);
+  const picture = document.createElement('picture');
+  const ext = url.pathname.substring(url.pathname.lastIndexOf('.') + 1);
+
+  // webp
+  breakpoints.forEach((br) => {
+    const source = document.createElement('source');
+    const webpUrl = new URL(url.href); // Clone original URL
+    webpUrl.searchParams.set('width', br.width);
+    webpUrl.searchParams.set('format', 'webp');
+    webpUrl.searchParams.set('optimize', 'medium');
+
+    if (br.media) source.setAttribute('media', br.media);
+    source.setAttribute('type', 'image/webp');
+    source.setAttribute('srcset', webpUrl.href);
+    picture.appendChild(source);
+  });
+
+  // fallback
+  breakpoints.forEach((br, i) => {
+    const fallbackUrl = new URL(url.href); // Clone original URL
+    fallbackUrl.searchParams.set('width', br.width);
+    fallbackUrl.searchParams.set('format', ext);
+    fallbackUrl.searchParams.set('optimize', 'medium');
+
+    if (i < breakpoints.length - 1) {
+      const source = document.createElement('source');
+      if (br.media) source.setAttribute('media', br.media);
+      source.setAttribute('srcset', fallbackUrl.href);
+      picture.appendChild(source);
+    } else {
+      const img = document.createElement('img');
+      img.setAttribute('loading', eager ? 'eager' : 'lazy');
+      img.setAttribute('alt', alt);
+      img.setAttribute('src', fallbackUrl.href);
+      picture.appendChild(img);
+    }
+  });
+
+  return picture;
+}
+
+
+/**
  * Decorates delivery assets by replacing anchor elements with optimized pictures.
  * @param {HTMLElement} main - The main element containing the anchor elements.
  */
@@ -115,7 +171,7 @@ function decorateDeliveryAssets (main) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.href;
       const altText = anchor.title;
-      const picture = createOptimizedPicture(deliveryUrl, altText);
+      const picture = createOptimizedPictureWithAbsoluteUrls(deliveryUrl, altText);
       anchor.replaceWith(picture);
     });
   }
