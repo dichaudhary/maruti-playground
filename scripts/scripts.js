@@ -104,8 +104,10 @@ export function buildAutoBlocks(main) {
   }
 }
 
-
-
+/**
+ * Decorates delivery assets by replacing anchor elements with optimized pictures.
+ * @param {HTMLElement} main - The main element containing the anchor elements.
+ */
 function decorateDeliveryAssets (main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
   const deliveryUrls = anchors.filter((anchor) => anchor.textContent.includes('delivery'));
@@ -113,7 +115,8 @@ function decorateDeliveryAssets (main) {
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.textContent;
-      const picture = createOptimizedPicture(deliveryUrl);
+      const altText = anchor.title;
+      const picture = createOptimizedPicture(deliveryUrl, altText);
       anchor.replaceWith(picture);
     });
   }
