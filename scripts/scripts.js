@@ -111,12 +111,10 @@ export function buildAutoBlocks(main) {
 function decorateDeliveryAssets (main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
   const deliveryUrls = anchors.filter((anchor) => anchor.textContent.includes('delivery'));
-
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
-      const deliveryUrl = anchor.textContent;
+      const deliveryUrl = anchor.href;
       const altText = anchor.title;
-      console.log('deliveryUrl', deliveryUrl);
       const picture = createOptimizedPicture(deliveryUrl, altText);
       anchor.replaceWith(picture);
     });
