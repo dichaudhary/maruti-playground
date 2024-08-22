@@ -1,40 +1,4 @@
-const Viewport = (function initializeViewport() {
-  let deviceType;
-
-  const breakpoints = {
-    mobile: window.matchMedia('(max-width: 47.99rem)'),
-    tablet: window.matchMedia('(min-width: 48rem) and (max-width: 63.99rem)'),
-    desktop: window.matchMedia('(min-width: 64rem)'),
-  };
-
-  function getDeviceType() {
-    if (breakpoints.mobile.matches) {
-      deviceType = 'Mobile';
-    } else if (breakpoints.tablet.matches) {
-      deviceType = 'Tablet';
-    } else {
-      deviceType = 'Desktop';
-    }
-    return deviceType;
-  }
-  getDeviceType();
-
-  function isDesktop() {
-    return deviceType === 'Desktop';
-  }
-  function isMobile() {
-    return deviceType === 'Mobile';
-  }
-  function isTablet() {
-    return deviceType === 'Tablet';
-  }
-  return {
-    getDeviceType,
-    isDesktop,
-    isMobile,
-    isTablet,
-  };
-}());
+import Viewport from '../../scripts/block-utils.js';
 
 function updateView() {
   const arrowDiv = document.querySelector('.journey-carousel .arrow-div');
@@ -50,11 +14,11 @@ function updateView() {
   if (Viewport.isMobile()) {
     const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
     const pictureDivs = document.querySelectorAll('.journey-carousel .jc-details picture');
-    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-    backgroundDiv.style.backgroundSize = '80% 80%';
+    const imageUrl = pictureDivs[0].querySelector('img').src;
+    backgroundDiv.style.backgroundImage = `url(${imageUrl})`;
   } else {
     const backgroundDiv = document.querySelector('.journey-carousel .jc-items');
-    backgroundDiv.style.background = 'none';
+    backgroundDiv.style.backgroundImage = 'none';
   }
 }
 
@@ -115,7 +79,7 @@ function addNavigationDiv(caraousalDiv) {
 
 export default async function decorate(block) {
   block.classList.add('dynamic-block');
-  const divs = block.querySelectorAll(':scope > div');
+  const divs = [...block.children];
   // Add the class to the first div
   if (divs.length > 0) {
     divs[0].classList.add('jc-details');
@@ -138,10 +102,9 @@ export default async function decorate(block) {
 
   // set background for jc-items div for mobile view
   if (Viewport.isMobile()) {
-    const backgroundDiv = itemsDiv;
     const pictureDivs = block.querySelectorAll('.journey-carousel .jc-details picture');
-    backgroundDiv.style.background = `url(${pictureDivs[0].querySelector('img').src}) center 60px no-repeat`;
-    backgroundDiv.style.backgroundSize = '80% 80%';
+    const imageUrl = pictureDivs[0].querySelector('img').src;
+    itemsDiv.style.backgroundImage = `url(${imageUrl})`;
   }
 
   // Move the remaining divs into the new div and add the class 'jc-item-details'

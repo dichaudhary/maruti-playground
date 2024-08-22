@@ -49,6 +49,10 @@
     flex-direction: column;
     width: 100%;
     padding: 0;
+    background-position: center 60px;
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+      
 }
 
 .journey-carousel .jc-items>*:nth-child(odd) {
@@ -158,7 +162,7 @@
         vertical-align: baseline;
         transition: transform 0.25s ease-in-out 0s;
         flex-direction: row;
-        background: none;
+        background-image: none;
     }
 
     .journey-carousel .jc-items .jc-item {
