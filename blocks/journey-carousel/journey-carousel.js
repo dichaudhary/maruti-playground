@@ -1,4 +1,4 @@
-import {Viewport} from '../../scripts/block-utils.js';
+import Viewport from '../../scripts/block-utils.js';
 
 function updateView() {
   const arrowDiv = document.querySelector('.journey-carousel .arrow-div');
