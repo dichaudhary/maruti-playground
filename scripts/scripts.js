@@ -116,6 +116,7 @@ function decorateDeliveryAssets (main) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.textContent;
       const altText = anchor.title;
+      console.log('deliveryUrl', deliveryUrl);
       const picture = createOptimizedPicture(deliveryUrl, altText);
       anchor.replaceWith(picture);
     });
