@@ -64,6 +64,7 @@ async function applyChanges(event) {
         block.insertAdjacentElement('afterend', newBlock);
         decorateButtons(newBlock);
         decorateIcons(newBlock);
+        decorateDeliveryAssets(newBlock);
         decorateBlock(newBlock);
         decorateRichtext(newBlock);
         await loadBlock(newBlock);
