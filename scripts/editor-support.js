@@ -6,6 +6,7 @@ import {
   decorateSections,
   loadBlock,
   loadBlocks,
+  decorateDeliveryAssets,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain, buildAutoBlocks } from './scripts.js';
@@ -63,6 +64,7 @@ async function applyChanges(event) {
         block.insertAdjacentElement('afterend', newBlock);
         decorateButtons(newBlock);
         decorateIcons(newBlock);
+        decorateDeliveryAssets(newBlock);
         decorateBlock(newBlock);
         decorateRichtext(newBlock);
         await loadBlock(newBlock);
