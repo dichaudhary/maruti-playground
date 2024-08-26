@@ -15,6 +15,7 @@ import {
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const deliveryAssetsIdentifier = '/adobe/assets/urn:aaid:aem:';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -165,7 +166,8 @@ function createOptimizedPictureWithAbsoluteUrls(
  */
 export function decorateDeliveryAssets(main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
-  const deliveryUrls = anchors.filter((anchor) => anchor.textContent.includes('delivery'));
+  const deliveryUrls = anchors.filter((anchor) => anchor.textContent
+    .includes(deliveryAssetsIdentifier));
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.href;
