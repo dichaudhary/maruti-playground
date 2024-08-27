@@ -168,7 +168,7 @@ function createOptimizedPictureWithAbsoluteUrls(
  */
 export function decorateDeliveryImages(main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
-  const urls = anchors.filter((anchor) => anchor.textContent
+  const deliveryUrls = anchors.filter((anchor) => anchor.textContent
     .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_IMAGE_IDENTIFIER));
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
@@ -233,7 +233,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
-  decorateDeliveryAssets(main);
+  decorateDeliveryImages(main);
   decorateDeliveryVideos(main);
   decorateBlocks(main);
 }
