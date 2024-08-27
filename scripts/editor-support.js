@@ -8,7 +8,9 @@ import {
   loadBlocks,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain, buildAutoBlocks, decorateDeliveryImages, decorateDeliveryVideos } from './scripts.js';
+import {
+  decorateMain, buildAutoBlocks, decorateDeliveryImages, decorateDeliveryVideos,
+} from './scripts.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)

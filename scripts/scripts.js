@@ -182,7 +182,6 @@ export function decorateDeliveryImages(main) {
 
 // Function to convert the existing div structure
 export function createVideoElement(deliveryUrl) {
-
   const url = new URL(deliveryUrl);
   const videoUrl = `${url.origin}${url.pathname.split('?')[0]}`;
   const assetName = url.searchParams.get('assetname');
