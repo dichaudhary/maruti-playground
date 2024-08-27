@@ -168,7 +168,7 @@ function createOptimizedPictureWithAbsoluteUrls(
  */
 export function decorateDeliveryImages(main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
-  const deliveryUrls = anchors.filter((anchor) => anchor.textContent
+  const deliveryUrls = anchors.filter((anchor) => anchor.href
     .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_IMAGE_IDENTIFIER));
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
@@ -203,7 +203,7 @@ export function createVideoElement(deliveryUrl) {
 
 export function decorateDeliveryVideos(main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
-  const urls = anchors.filter((anchor) => anchor.textContent
+  const urls = anchors.filter((anchor) => anchor.href
     .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_VIDEO_IDENTIFIER));
   if (urls.length > 0) {
     urls.forEach((anchor) => {
