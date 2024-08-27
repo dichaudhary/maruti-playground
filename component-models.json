@@ -389,5 +389,50 @@
         "label": "Description"
       }
     ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "name": "video",
+        "label": "Video",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/videos.config.json",
+        "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "valueType": "string",
+        "name": "videoTitle",
+        "value": "",
+        "label": "Options",
+        "options": [
+          {
+            "name": "Muted",
+            "value": "muted"
+          },
+          {
+            "name": "Loop",
+            "value": "loop"
+          },
+          {
+            "name": "Hero",
+            "value": "hero"
+          },
+          {
+            "name": "Inline",
+            "value": "inline"
+          },
+          {
+            "name": "Autoplay",
+            "value": "autoplay"
+          },
+          {
+            "name": "Controls",
+            "value": "controls"
+          }
+        ]
+      }
+    ]
   }
 ]

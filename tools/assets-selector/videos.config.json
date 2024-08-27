@@ -6,6 +6,7 @@
     "repoNames": [
         "delivery-p130360-e1403848.adobeaemcloud.com"
     ],
+    "videoResponseType" : "html",
     "filterSchema": [
         {
             "fields": [
@@ -13,15 +14,16 @@
                     "element": "checkbox",
                     "name": "type",
                     "defaultValue": [
-                        "image/*"
+                        "video/*"
                     ],
                     "options": [
                         {
-                            "label": "Image",
-                            "value": "image/*",
+                            "label": "Video",
+                            "value": "video/*",
                             "readOnly": true
                         }
-                    ]
+                    ],
+                    "orientation": "horizontal"
                 }
             ],
             "header": "File Type",
@@ -29,3 +31,4 @@
         }
     ]
 }
+

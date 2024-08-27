@@ -16,7 +16,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "video"
     ]
   },
   {
@@ -30,7 +31,9 @@
       "cards",
       "columns",
       "image-carousel",
-      "journey-carousel"
+      "journey-carousel",
+      "video"
+
     ]
   },
   {

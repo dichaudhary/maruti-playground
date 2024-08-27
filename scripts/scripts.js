@@ -16,6 +16,8 @@ import {
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 const DELIVERY_ASSET_IDENTIFIER = '/adobe/assets/urn:aaid:aem:';
+const DELIVERY_VIDEO_IDENTIFIER = '/play';
+const DELIVERY_IMAGE_IDENTIFIER = '/as/';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -164,16 +166,58 @@ function createOptimizedPictureWithAbsoluteUrls(
  * Decorates delivery assets by replacing anchor elements with optimized pictures.
  * @param {HTMLElement} main - The main element containing the anchor elements.
  */
-export function decorateDeliveryAssets(main) {
+export function decorateDeliveryImages(main) {
   const anchors = Array.from(main.getElementsByTagName('a'));
-  const deliveryUrls = anchors.filter((anchor) => anchor.textContent
-    .includes(DELIVERY_ASSET_IDENTIFIER));
+  const urls = anchors.filter((anchor) => anchor.textContent
+    .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_IMAGE_IDENTIFIER));
   if (deliveryUrls.length > 0) {
     deliveryUrls.forEach((anchor) => {
       const deliveryUrl = anchor.href;
       const altText = anchor.title;
       const picture = createOptimizedPictureWithAbsoluteUrls(deliveryUrl, altText);
       anchor.replaceWith(picture);
+    });
+  }
+}
+
+// Function to convert the existing div structure
+export function createVideoElement(deliveryUrl) {
+
+  const url = new URL(deliveryUrl);
+  const videoUrl = `${url.origin}${url.pathname.split('?')[0]}`;
+  const assetName = url.searchParams.get('assetname');
+
+  const posterImageUrl = deliveryUrl.replace('/play', '/as/poster.jpg').split('?')[0];
+
+  const videoDiv = document.createElement('div');
+
+  const newAnchor = document.createElement('a');
+  newAnchor.href = videoUrl;
+  newAnchor.textContent = assetName;
+  const picture = createOptimizedPictureWithAbsoluteUrls(posterImageUrl);
+  videoDiv.appendChild(picture);
+  videoDiv.appendChild(newAnchor);
+
+  return videoDiv;
+}
+
+export function decorateDeliveryVideos(main) {
+  const anchors = Array.from(main.getElementsByTagName('a'));
+  const urls = anchors.filter((anchor) => anchor.textContent
+    .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_VIDEO_IDENTIFIER));
+  if (urls.length > 0) {
+    urls.forEach((anchor) => {
+      const authorUrl = anchor.href;
+      const options = anchor.title;
+      const video = createVideoElement(authorUrl);
+      anchor.parentElement.replaceWith(video);
+      const videoMainDiv = anchor.closest('.video');
+      if (videoMainDiv && options) {
+        const videoOptions = options.split(',');
+        videoOptions.forEach((option) => {
+          videoMainDiv.classList.add(option.trim());
+        });
+      }
     });
   }
 }
@@ -190,6 +234,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateDeliveryAssets(main);
+  decorateDeliveryVideos(main);
   decorateBlocks(main);
 }
 

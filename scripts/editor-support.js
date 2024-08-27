@@ -8,7 +8,7 @@ import {
   loadBlocks,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain, buildAutoBlocks, decorateDeliveryAssets } from './scripts.js';
+import { decorateMain, buildAutoBlocks, decorateDeliveryImages, decorateDeliveryVideos } from './scripts.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
@@ -54,7 +54,8 @@ async function applyChanges(event) {
           // multi step forms
           decorateButtons(newBlock);
           decorateIcons(newBlock);
-          decorateDeliveryAssets(newBlock);
+          decorateDeliveryImages(newBlock);
+          decorateDeliveryVideos(newBlock);
           decorateBlock(newBlock);
           decorateRichtext(newBlock);
           element.dispatchEvent(new CustomEvent('apply-update', { detail: newBlock.outerHTML }));
@@ -64,7 +65,8 @@ async function applyChanges(event) {
         block.insertAdjacentElement('afterend', newBlock);
         decorateButtons(newBlock);
         decorateIcons(newBlock);
-        decorateDeliveryAssets(newBlock);
+        decorateDeliveryImages(newBlock);
+        decorateDeliveryVideos(newBlock);
         decorateBlock(newBlock);
         decorateRichtext(newBlock);
         await loadBlock(newBlock);
