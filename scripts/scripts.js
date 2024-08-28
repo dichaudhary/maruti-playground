@@ -209,7 +209,7 @@ export function decorateDeliveryVideos(main) {
       const authorUrl = anchor.href;
       const options = anchor.title;
       const video = createVideoElement(authorUrl);
-      anchor.parentElement.replaceWith(video);
+      
       const videoMainDiv = anchor.closest('.video');
       if (videoMainDiv && options) {
         const videoOptions = options.split(',');
@@ -217,6 +217,7 @@ export function decorateDeliveryVideos(main) {
           videoMainDiv.classList.add(option.trim());
         });
       }
+      anchor.parentElement.replaceWith(video);
     });
   }
 }
