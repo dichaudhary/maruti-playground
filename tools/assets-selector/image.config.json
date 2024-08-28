@@ -12,6 +12,12 @@
             "value": "reference"
         }
     ],
+    "preferredDimensions":{
+        "minWidth": 500,
+        "maxWidth": 3000, 
+        "minHeight": 500,
+        "maxHeight": 3000
+    },
     "filterSchema": [
         {
             "fields": [
