@@ -408,14 +408,6 @@
         "label": "Options",
         "options": [
           {
-            "name": "Muted",
-            "value": "muted"
-          },
-          {
-            "name": "Loop",
-            "value": "loop"
-          },
-          {
             "name": "Hero",
             "value": "hero"
           },
@@ -426,10 +418,6 @@
           {
             "name": "Autoplay",
             "value": "autoplay"
-          },
-          {
-            "name": "Controls",
-            "value": "controls"
           }
         ]
       }

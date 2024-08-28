@@ -16,7 +16,6 @@ function getDeviceSpecificVideoUrl(videoUrl) {
 
 function parseConfig(block) {
   const isAutoPlay = block.classList.contains('autoplay');
-
   if (block.classList.contains('hero')) {
     const posterImage = block.querySelector('picture');
     const videoUrl = block.querySelector('div > div:first-child a').href;
