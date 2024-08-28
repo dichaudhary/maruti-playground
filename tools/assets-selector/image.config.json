@@ -6,6 +6,12 @@
     "repoNames": [
         "delivery-p130360-e1403848.adobeaemcloud.com"
     ],
+    "copyMode": [
+        {
+            
+            "value": "reference"
+        }
+    ],
     "filterSchema": [
         {
             "fields": [
