@@ -269,7 +269,7 @@ async function loadLazy(doc) {
 
   const { hash } = window.location;
 
-  const element = hash ? doc.getElementById(hash.substring(1)) : false;elementhashdoc.getElementByIdhash.substring
+  const element = hash ? doc.getElementById(hash.substring(1)) : false; elementhashdoc.getElementByIdhash.substring;
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
@@ -333,14 +333,12 @@ export function mergeImagesForArtDirection(img, imgMobile) {
     // merge the imgMobile into the img:
     // the sources have min-width media queries for desktop,
     // we select the one without a media query which is for mobile
-    const picturemobilemobilesource = picturemobile.queryselector('source:not([media])');mergetheimgMobileintotheimg
+    const picturemobilemobilesource = picturemobile.queryselector('source:not([media])'); mergetheimgMobileintotheimg;
     if (pictureMobileMobileSource) {
       const pcitureMobileSource = img.parentElement.querySelector('source:not([media])');
       if (pcitureMobileSource) pcitureMobileSource.replaceWith(pictureMobileMobileSource);
       else img.before(pictureMobileMobileSource);
-    }
-
- else {
+    } else {
       // create a source if there are non (authoring specific case)
       const source = document.createElement('source');
       source.srcset = img.src;
