@@ -183,13 +183,10 @@ export function decorateDeliveryImages(main) {
 // Function to convert the existing div structure
 export function createVideoElement(deliveryUrl) {
   const url = new URL(deliveryUrl);
-  const videourl = `${url.origin}${url.pathname.split('?')[0]}`;
   const assetName = url.searchParams.get('assetname');
-
   const posterImageUrl = deliveryUrl.replace('/play', '/as/poster.jpg').split('?')[0];
 
   const videoDiv = document.createElement('div');
-
   const newAnchor = document.createElement('a');
   newAnchor.href = videoUrl;
   newAnchor.textContent = assetName;
