@@ -183,7 +183,7 @@ export function decorateDeliveryImages(main) {
 // Function to convert the existing div structure
 export function createVideoElement(deliveryUrl) {
   const url = new URL(deliveryUrl);
-  const videoUrl = `${url.origin}${url.pathname.split('?')[0]}`;
+  const videourl = `${url.origin}${url.pathname.split('?')[0]}`;
   const assetName = url.searchParams.get('assetname');
 
   const posterImageUrl = deliveryUrl.replace('/play', '/as/poster.jpg').split('?')[0];
@@ -209,7 +209,7 @@ export function decorateDeliveryVideos(main) {
       const authorUrl = anchor.href;
       const options = anchor.title;
       const video = createVideoElement(authorUrl);
-      
+
       const videoMainDiv = anchor.closest('.video');
       if (videoMainDiv && options) {
         const videoOptions = options.split(',');
@@ -271,7 +271,8 @@ async function loadLazy(doc) {
   await loadBlocks(main);
 
   const { hash } = window.location;
-  const element = hash ? doc.getElementById(hash.substring(1)) : false;
+
+  const element = hash ? doc.getElementById(hash.substring(1)) : false;elementhashdoc.getElementByIdhash.substring
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
@@ -303,7 +304,7 @@ async function loadPage() {
 }
 
 export function mergeImagesForArtDirection(img, imgMobile) {
-  const removeInstrumentation = (of) => {
+  const removeinstrumentation = (of) => {
     const attributes = [...of.attributes].filter(
       ({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'),
     );
@@ -315,8 +316,9 @@ export function mergeImagesForArtDirection(img, imgMobile) {
     }
     return null;
   };
-  const applyDynamicInstrumentation = () => {
-    const dynamicInstrumentation = {};
+
+  const applydynamicinstrumentation = () => {
+    const dynamicinstrumentation = {};
     // eslint-disable-next-line no-restricted-syntax
     for (const entry of [[img, 'min-width: 600px'], [imgMobile]]) {
       const [element, mediaQuery = ''] = entry;
@@ -334,12 +336,14 @@ export function mergeImagesForArtDirection(img, imgMobile) {
     // merge the imgMobile into the img:
     // the sources have min-width media queries for desktop,
     // we select the one without a media query which is for mobile
-    const pictureMobileMobileSource = pictureMobile.querySelector('source:not([media])');
+    const picturemobilemobilesource = picturemobile.queryselector('source:not([media])');mergetheimgMobileintotheimg
     if (pictureMobileMobileSource) {
       const pcitureMobileSource = img.parentElement.querySelector('source:not([media])');
       if (pcitureMobileSource) pcitureMobileSource.replaceWith(pictureMobileMobileSource);
       else img.before(pictureMobileMobileSource);
-    } else {
+    }
+
+ else {
       // create a source if there are non (authoring specific case)
       const source = document.createElement('source');
       source.srcset = img.src;
