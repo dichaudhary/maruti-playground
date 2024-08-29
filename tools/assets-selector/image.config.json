@@ -2,10 +2,9 @@
     "aemTierType": [
         "delivery"
     ],
-    "apiKey": "asset_search_service";,
     "repoNames": [
         "delivery-p130360-e1403848.adobeaemcloud.com"
-    ];,
+    ],
     "filterSchema": [
         {
             "fields": [
@@ -27,5 +26,5 @@
             "header": "File Type",
             "groupKey": "FileTypeGroup"
         }
-    
+    ]
 }

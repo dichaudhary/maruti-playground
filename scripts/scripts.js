@@ -183,9 +183,9 @@ export function decorateDeliveryImages(main) {
 // Function to convert the existing div structure
 export function createVideoElement(deliveryUrl) {
   const url = new URL(deliveryUrl);
+  const videoUrl = `${url.origin}${url.pathname.split('?')[0]}`;
   const assetName = url.searchParams.get('assetname');
   const posterImageUrl = deliveryUrl.replace('/play', '/as/poster.jpg').split('?')[0];
-
   const videoDiv = document.createElement('div');
   const newAnchor = document.createElement('a');
   newAnchor.href = videoUrl;
@@ -268,8 +268,7 @@ async function loadLazy(doc) {
   await loadBlocks(main);
 
   const { hash } = window.location;
-
-  const element = hash ? doc.getElementById(hash.substring(1)) : false; elementhashdoc.getElementByIdhash.substring;
+  const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
@@ -301,7 +300,7 @@ async function loadPage() {
 }
 
 export function mergeImagesForArtDirection(img, imgMobile) {
-  const removeinstrumentation = (of) => {
+  const removeInstrumentation = (of) => {
     const attributes = [...of.attributes].filter(
       ({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'),
     );
@@ -313,9 +312,8 @@ export function mergeImagesForArtDirection(img, imgMobile) {
     }
     return null;
   };
-
-  const applydynamicinstrumentation = () => {
-    const dynamicinstrumentation = {};
+  const applyDynamicInstrumentation = () => {
+    const dynamicInstrumentation = {};
     // eslint-disable-next-line no-restricted-syntax
     for (const entry of [[img, 'min-width: 600px'], [imgMobile]]) {
       const [element, mediaQuery = ''] = entry;
@@ -333,7 +331,7 @@ export function mergeImagesForArtDirection(img, imgMobile) {
     // merge the imgMobile into the img:
     // the sources have min-width media queries for desktop,
     // we select the one without a media query which is for mobile
-    const picturemobilemobilesource = picturemobile.queryselector('source:not([media])'); mergetheimgMobileintotheimg;
+    const pictureMobileMobileSource = pictureMobile.querySelector('source:not([media])');
     if (pictureMobileMobileSource) {
       const pcitureMobileSource = img.parentElement.querySelector('source:not([media])');
       if (pcitureMobileSource) pcitureMobileSource.replaceWith(pictureMobileMobileSource);

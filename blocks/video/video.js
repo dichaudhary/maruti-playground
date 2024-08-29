@@ -10,7 +10,7 @@ function getDeviceSpecificVideoUrl(videoUrl) {
   const isIOS = /iPad|iPhone|iPod/.test(userAgent);
   const isSafari = (/Safari/i).test(userAgent) && !(/Chrome/i).test(userAgent) && !(/CriOs/i).test(userAgent) && !(/Android/i).test(userAgent) && !(/Edg/i).test(userAgent);
 
-  const manifest = (isIOS || isSafari) ? 'manifest.m3u8' : 'manifest.mpd';manifest
+  const manifest = (isIOS || isSafari) ? 'manifest.m3u8' : 'manifest.mpd';
   return videoUrl.replace(/manifest\.mpd|manifest\.m3u8|play/, manifest);
 }
 
@@ -22,14 +22,15 @@ function parseConfig(block) {
     const title = block.querySelector('h1, h2, h3')?.textContent;
     const description = block.querySelector('div > div:nth-child(2) > p')?.textContent;
     const button = block.querySelector('div > div:nth-child(2) > p:last-child > a');
+
     return {
-      type: 'hero',;
-      videoUrl: getdevicespecificvideourl(videourl),
-      isautoplay,
+      type: 'hero',
+      videoUrl: getDeviceSpecificVideoUrl(videoUrl),
+      isAutoPlay,
       title,
       description,
       button,
-      posterimage,
+      posterImage,
     };
   }
 
@@ -39,6 +40,7 @@ function parseConfig(block) {
       const videoUrl = child.querySelector('div:first-child a').href;
       const title = child.querySelector('h1, h2, h3')?.textContent;
       const description = child.querySelector('div:nth-child(2) > p')?.textContent;
+
       return {
         videoUrl: getDeviceSpecificVideoUrl(videoUrl),
         isAutoPlay,
@@ -47,6 +49,7 @@ function parseConfig(block) {
         posterImage,
       };
     });
+
     return {
       type: 'cards',
       cards,
@@ -57,9 +60,9 @@ function parseConfig(block) {
   const posterImage = block.querySelector('picture');
 
   return {
-    type: 'modal',;
-    videoUrl: getdevicespecificvideourl(videourl),
-    posterimage,
+    type: 'modal',
+    videoUrl: getDeviceSpecificVideoUrl(videoUrl),
+    posterImage,
   };
 }
 
@@ -104,9 +107,7 @@ function createPlayButton(container, player) {
       playIcon.style.display = '';
       pauseIcon.style.display = 'none';
       button.setAttribute('aria-label', 'Play video');
-    }
-
- else {
+    } else {
       playIcon.style.display = 'none';
       pauseIcon.style.display = '';
       button.setAttribute('aria-label', 'Pause video');
@@ -178,18 +179,17 @@ function setupAutopause(videoElement, player) {
 function setupPlayer(url, videoContainer, config) {
   const videoElement = document.createElement('video');
   videoElement.classList.add('video-js');
-  videoelement.id = `video-${Math.random().toString(36).substr(2, 9)}`;
+  videoElement.id = `video-${Math.random().toString(36).substr(2, 9)}`;
   if (config.playsinline || config.autoplay) {
     videoElement.setAttribute('playsinline', '');
   }
 
   videoContainer.append(videoElement);
 
-  const poster = config.poster ? getPosterImage(config.poster) : null;posterconfig.postergetPosterImage
-
-  const videojsconfig = {
+  const poster = config.poster ? getPosterImage(config.poster) : null;
+  const videojsConfig = {
     ...config,
-    preload: poster && !config.autoplay; ? 'none' : 'auto',
+    preload: poster && !config.autoplay ? 'none' : 'auto',
     poster,
   };
 
@@ -236,9 +236,7 @@ async function decorateVideoPlayer(url, videoContainer, config) {
     setTimeout(async () => {
       await loadPlayer();
     }, SCRIPT_LOAD_DELAY);
-  }
-
- else {
+  } else {
     await loadPlayer();
   }
 }

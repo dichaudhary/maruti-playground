@@ -1,8 +1,11 @@
-{,
+{
+    "aemTierType": [
+        "delivery"
+    ],
     "repoNames": [
         "delivery-p130360-e1403848.adobeaemcloud.com"
-    ];,
-    "videoResponseType" : "html";,
+    ],
+    "videoResponseType" : "html",
     "filterSchema": [
         {
             "fields": [
@@ -25,6 +28,6 @@
             "header": "File Type",
             "groupKey": "FileTypeGroup"
         }
-    
+    ]
 }
 
