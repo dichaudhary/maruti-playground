@@ -67,14 +67,16 @@
     "id": "image-slide",
     "fields": [
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_desktop",
         "label": "Image Desktop",
         "multi": false
       },
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image_mobile",
         "label": "Image (mobile)",
@@ -83,7 +85,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "image_mobileAlt",
+        "name": "image_mobileTitle",
         "value": "Default alt",
         "label": "Alt Text"
       }
@@ -297,7 +299,8 @@
     "id": "journey-carousel",
     "fields": [
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "common_background-image",
         "label": "Background Image",
@@ -305,7 +308,8 @@
         "required": true
       },
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "common_image",
         "label": "Image",
@@ -315,7 +319,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "common_imageAlt",
+        "name": "common_imageTitle",
         "value": "Default alt",
         "label": "Alt Text",
         "required": true
@@ -347,7 +351,8 @@
     "id": "journey-carousel-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/image.config.json",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -357,7 +362,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
+        "name": "imageTitle",
         "value": "Default alt",
         "label": "Alt Text",
         "required": true
@@ -382,6 +387,39 @@
         "name": "content_description",
         "value": "",
         "label": "Description"
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "name": "video",
+        "label": "Video",
+        "configUrl": "https://raw.githubusercontent.com/buuhuu/maruti-playground/dmassetpicker/tools/assets-selector/videos.config.json",
+        "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "valueType": "string",
+        "name": "videoTitle",
+        "value": "",
+        "label": "Options",
+        "options": [
+          {
+            "name": "Hero",
+            "value": "hero"
+          },
+          {
+            "name": "Inline",
+            "value": "inline"
+          },
+          {
+            "name": "Autoplay",
+            "value": "autoplay"
+          }
+        ]
       }
     ]
   }

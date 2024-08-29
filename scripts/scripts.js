@@ -15,6 +15,9 @@ import {
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const DELIVERY_ASSET_IDENTIFIER = '/adobe/assets/urn:aaid:aem:';
+const DELIVERY_VIDEO_IDENTIFIER = '/play';
+const DELIVERY_IMAGE_IDENTIFIER = '/as/';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -104,6 +107,119 @@ export function buildAutoBlocks(main) {
 }
 
 /**
+ * Returns a picture element with webp and fallbacks
+ * @param {string} src The image URL
+ * @param {string} [alt] The image alternative text
+ * @param {boolean} [eager] Set loading attribute to eager
+ * @param {Array} [breakpoints] Breakpoints and corresponding params (eg. width)
+ * @returns {Element} The picture element
+ */
+function createOptimizedPictureWithAbsoluteUrls(
+  src,
+  alt = '',
+  eager = false,
+  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }],
+) {
+  const url = new URL(src, window.location.href);
+  const picture = document.createElement('picture');
+  const ext = url.pathname.substring(url.pathname.lastIndexOf('.') + 1);
+
+  // webp
+  breakpoints.forEach((br) => {
+    const source = document.createElement('source');
+    const webpUrl = new URL(url.href); // Clone original URL
+    webpUrl.searchParams.set('width', br.width);
+    webpUrl.searchParams.set('format', 'webp');
+    webpUrl.searchParams.set('optimize', 'medium');
+
+    if (br.media) source.setAttribute('media', br.media);
+    source.setAttribute('type', 'image/webp');
+    source.setAttribute('srcset', webpUrl.href);
+    picture.appendChild(source);
+  });
+
+  // fallback
+  breakpoints.forEach((br, i) => {
+    const fallbackUrl = new URL(url.href); // Clone original URL
+    fallbackUrl.searchParams.set('width', br.width);
+    fallbackUrl.searchParams.set('format', ext);
+    fallbackUrl.searchParams.set('optimize', 'medium');
+
+    if (i < breakpoints.length - 1) {
+      const source = document.createElement('source');
+      if (br.media) source.setAttribute('media', br.media);
+      source.setAttribute('srcset', fallbackUrl.href);
+      picture.appendChild(source);
+    } else {
+      const img = document.createElement('img');
+      img.setAttribute('loading', eager ? 'eager' : 'lazy');
+      img.setAttribute('alt', alt);
+      img.setAttribute('src', fallbackUrl.href);
+      picture.appendChild(img);
+    }
+  });
+
+  return picture;
+}
+
+/**
+ * Decorates delivery assets by replacing anchor elements with optimized pictures.
+ * @param {HTMLElement} main - The main element containing the anchor elements.
+ */
+export function decorateDeliveryImages(main) {
+  const anchors = Array.from(main.getElementsByTagName('a'));
+  const deliveryUrls = anchors.filter((anchor) => anchor.href
+    .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_IMAGE_IDENTIFIER));
+  if (deliveryUrls.length > 0) {
+    deliveryUrls.forEach((anchor) => {
+      const deliveryUrl = anchor.href;
+      const altText = anchor.title;
+      const picture = createOptimizedPictureWithAbsoluteUrls(deliveryUrl, altText);
+      anchor.replaceWith(picture);
+    });
+  }
+}
+
+// Function to convert the existing div structure
+export function createVideoElement(deliveryUrl) {
+  const url = new URL(deliveryUrl);
+  const videoUrl = `${url.origin}${url.pathname.split('?')[0]}`;
+  const assetName = url.searchParams.get('assetname');
+  const posterImageUrl = deliveryUrl.replace('/play', '/as/poster.jpg').split('?')[0];
+  const videoDiv = document.createElement('div');
+  const newAnchor = document.createElement('a');
+  newAnchor.href = videoUrl;
+  newAnchor.textContent = assetName;
+  const picture = createOptimizedPictureWithAbsoluteUrls(posterImageUrl);
+  videoDiv.appendChild(picture);
+  videoDiv.appendChild(newAnchor);
+
+  return videoDiv;
+}
+
+export function decorateDeliveryVideos(main) {
+  const anchors = Array.from(main.getElementsByTagName('a'));
+  const urls = anchors.filter((anchor) => anchor.href
+    .includes(DELIVERY_ASSET_IDENTIFIER) && anchor.href.includes(DELIVERY_VIDEO_IDENTIFIER));
+  if (urls.length > 0) {
+    urls.forEach((anchor) => {
+      const authorUrl = anchor.href;
+      const options = anchor.title;
+      const video = createVideoElement(authorUrl);
+
+      const videoMainDiv = anchor.closest('.video');
+      if (videoMainDiv && options) {
+        const videoOptions = options.split(',');
+        videoOptions.forEach((option) => {
+          videoMainDiv.classList.add(option.trim());
+        });
+      }
+      anchor.parentElement.replaceWith(video);
+    });
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -114,6 +230,8 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateDeliveryImages(main);
+  decorateDeliveryVideos(main);
   decorateBlocks(main);
 }
 

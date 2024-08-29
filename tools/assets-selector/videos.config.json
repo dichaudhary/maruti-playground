@@ -1,0 +1,33 @@
+{
+    "aemTierType": [
+        "delivery"
+    ],
+    "repoNames": [
+        "delivery-p130360-e1403848.adobeaemcloud.com"
+    ],
+    "videoResponseType" : "html",
+    "filterSchema": [
+        {
+            "fields": [
+                {
+                    "element": "checkbox",
+                    "name": "type",
+                    "defaultValue": [
+                        "video/*"
+                    ],
+                    "options": [
+                        {
+                            "label": "Video",
+                            "value": "video/*",
+                            "readOnly": true
+                        }
+                    ],
+                    "orientation": "horizontal"
+                }
+            ],
+            "header": "File Type",
+            "groupKey": "FileTypeGroup"
+        }
+    ]
+}
+
