@@ -32,6 +32,9 @@
       "columns",
       "image-carousel",
       "journey-carousel",
+      "image-carousel",
+      "faq",
+      "journey-carousel",
       "video"
 
     ]
@@ -62,5 +65,12 @@
     "components": [
       "journey-carousel-item"
     ]
+  },
+  {
+    "id": "faq",
+    "components": [
+      "faq-item"
+    ]
   }
+
 ]
