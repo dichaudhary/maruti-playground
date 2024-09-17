@@ -2,7 +2,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   // Add a class to the block for styling
-  block.classList.add('faq-block');
+  block.classList.add('faq-container');
 
   // Decorate the FAQ title
   const title = block.querySelector('h2');
@@ -12,28 +12,23 @@ export default function decorate(block) {
 
   // Decorate the FAQ items
   [...block.children].forEach((row, index) => {
-    if (index > 0) { // Skip the first row which contains the title
+    if (index > 1) { // Skip the first two rows (title and image)
+      // Decorate FAQ item label
       const label = row.children[0];
       const summary = document.createElement('summary');
       summary.className = 'faq-item-label';
-      if(label.childElementCount > 0) {
-        summary.append(...label.childNodes);
-      }
+      if (label.childElementCount) summary.append(...label.childNodes);
+
+      // Decorate FAQ item body
       const body = row.children[1];
       body.className = 'faq-item-body';
 
+      // Decorate FAQ item
       const details = document.createElement('details');
       details.className = 'faq-item';
-
       moveInstrumentation(row, details);
       details.append(summary, body);
       row.replaceWith(details);
     }
   });
-
-  // Add the "View More Questions" button
-  const viewMoreButton = document.createElement('button');
-  viewMoreButton.className = 'faq-view-more';
-  viewMoreButton.textContent = 'VIEW MORE QUESTIONS';
-  block.append(viewMoreButton);
 }
