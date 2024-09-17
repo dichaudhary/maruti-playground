@@ -1,53 +1,46 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-  // Add a class to the block for styling
-  block.classList.add('faq-container');
-
-  // Decorate the title
+  // Add FAQ title styling
   const title = block.querySelector('h2');
   if (title) {
-    title.classList.add('faq-title');
+    title.className = 'faq-title';
   }
 
-  // Decorate the image
-  const imageContainer = block.children[1]
-  if (imageContainer) {
-    const imgWrapper = document.createElement('div');
-    imgWrapper.className = 'faq-image-wrapper';
-    moveInstrumentation(imageContainer.parentElement, imgWrapper);
-    imgWrapper.appendChild(imageContainer);
-    imageContainer.parentElement.replaceWith(imgWrapper);
-  }
-
-  // Decorate the "View More Questions" button
-  const viewMore = block.querySelector('div > div > p');
-  if (viewMore) {
-    const button = document.createElement('button');
-    button.className = 'faq-view-more';
-    button.textContent = viewMore.textContent;
-    moveInstrumentation(viewMore.parentElement, button);
-    viewMore.parentElement.replaceWith(button);
-  }
-
-  // Decorate the accordion items
+  // Process each FAQ item
   [...block.children].forEach((row, index) => {
-    if (index > 2) { // Skip the first three rows (title, image, and button)
-      const label = row.children[0];
+    if (index > 2) {
+
+      const question = row.children[0];
+      const answer = row.children[1];
+  
+      // Create summary element for the question
       const summary = document.createElement('summary');
       summary.className = 'faq-item-label';
-      if (label.childElementCount) {
-        summary.append(...label.childNodes);
+      if (question.childElementCount) {
+        summary.append(...question.childNodes);
+      } else {
+        summary.textContent = question.textContent;
       }
-
-      const body = row.children[1];
-      body.className = 'faq-item-body';
-
+  
+      // Create details element for the FAQ item
       const details = document.createElement('details');
       details.className = 'faq-item';
+  
+      // Move instrumentation
       moveInstrumentation(row, details);
-      details.append(summary, body);
+  
+      // Append summary and answer to details
+      details.append(summary, answer);
       row.replaceWith(details);
     }
   });
+
+  // Add the "View More Questions" button
+  const viewMoreRow = document.createElement('div');
+  viewMoreRow.className = 'faq-view-more';
+  const viewMoreButton = document.createElement('button');
+  viewMoreButton.textContent = 'VIEW MORE QUESTIONS';
+  viewMoreRow.append(viewMoreButton);
+  block.append(viewMoreRow);
 }
