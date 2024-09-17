@@ -24,7 +24,7 @@ export default function decorate(block) {
 
   // Convert the FAQ items into an accordion
   [...block.children].forEach((row, index) => {
-    if (!row.querySelector('h2') && !row.querySelector('picture') && index>2) {
+    if (!row.querySelector('h2') && !row.querySelector('picture') && index>3) {
       // Decorate accordion item label
       const label = row.children[0];
       const summary = document.createElement('summary');
