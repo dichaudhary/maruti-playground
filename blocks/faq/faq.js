@@ -10,7 +10,6 @@ export default function decorate(block) {
   // Process each FAQ item
   [...block.children].forEach((row, index) => {
     if (index > 2) {
-
       const question = row.children[0];
       const answer = row.children[1];
   
