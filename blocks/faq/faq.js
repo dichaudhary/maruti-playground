@@ -1,34 +1,38 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-  // Find the FAQ title and style it
+  // Add a class to the block for styling
+  block.classList.add('faq-block');
+
+  // Decorate the FAQ title
   const title = block.querySelector('h2');
-  title.classList.add('faq-title');
+  if (title) {
+    title.classList.add('faq-title');
+  }
 
-  // Find the "View More Questions" button and style it
-  const viewMore = block.querySelector('div > div > p');
-  viewMore.classList.add('faq-view-more');
-  viewMore.innerHTML = '<button>VIEW MORE QUESTIONS</button>';
+  // Decorate the FAQ items
+  [...block.children].forEach((row, index) => {
+    if (index > 0) { // Skip the first row which contains the title
+      const label = row.children[0];
+      const summary = document.createElement('summary');
+      summary.className = 'faq-item-label';
+      summary.append(...label.childNodes);
 
-  // Process each question-answer pair
-  const pairs = [...block.querySelectorAll(':scope > div')].slice(3);
+      const body = row.children[1];
+      body.className = 'faq-item-body';
 
-  pairs.forEach((pair) => {
-    // Decorate the question
-    const question = pair.children[0];
-    const summary = document.createElement('summary');
-    summary.className = 'faq-question';
-    summary.append(...question.childNodes);
+      const details = document.createElement('details');
+      details.className = 'faq-item';
 
-    // Decorate the answer
-    const answer = pair.children[1];
-    answer.className = 'faq-answer';
-
-    // Create details element to wrap question and answer
-    const details = document.createElement('details');
-    details.className = 'faq-item';
-    moveInstrumentation(pair, details)
-    details.append(summary, answer);
-    pair.replaceWith(details);
+      moveInstrumentation(row, details);
+      details.append(summary, body);
+      row.replaceWith(details);
+    }
   });
+
+  // Add the "View More Questions" button
+  const viewMoreButton = document.createElement('button');
+  viewMoreButton.className = 'faq-view-more';
+  viewMoreButton.textContent = 'VIEW MORE QUESTIONS';
+  block.append(viewMoreButton);
 }
