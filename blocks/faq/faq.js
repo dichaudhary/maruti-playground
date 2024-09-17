@@ -16,8 +16,9 @@ export default function decorate(block) {
       const label = row.children[0];
       const summary = document.createElement('summary');
       summary.className = 'faq-item-label';
-      summary.append(...label.childNodes);
-
+      if(label.childElementCount > 0) {
+        summary.append(...label.childNodes);
+      }
       const body = row.children[1];
       body.className = 'faq-item-body';
 
