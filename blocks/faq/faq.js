@@ -29,5 +29,6 @@ export default function decorate(block) {
     details.className = 'faq-item';
     moveInstrumentation(pair, details)
     details.append(summary, answer);
+    pair.replaceWith(details);
   });
 }
