@@ -12,7 +12,7 @@ export default function decorate(block) {
 
   // Decorate the FAQ items
   [...block.children].forEach((row, index) => {
-    if (index > 1) { // Skip the first two rows (title and image)
+    if (index > 2) { // Skip the first two rows (title and image)
       // Decorate FAQ item label
       const label = row.children[0];
       const summary = document.createElement('summary');
