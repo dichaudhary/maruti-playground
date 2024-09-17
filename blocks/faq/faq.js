@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   // Find the FAQ title and style it
   const title = block.querySelector('h2');
@@ -25,7 +27,7 @@ export default function decorate(block) {
     // Create details element to wrap question and answer
     const details = document.createElement('details');
     details.className = 'faq-item';
+    moveInstrumentation(pair, details)
     details.append(summary, answer);
-    pair.replaceWith(details);
   });
 }
