@@ -1,4 +1,4 @@
-function decorate(block) {
+export default function decorate(block) {
   // Find the FAQ title and style it
   const title = block.querySelector('h2');
   title.classList.add('faq-title');
