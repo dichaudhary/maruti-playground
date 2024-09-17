@@ -1,11 +1,9 @@
-.faq-block {
-  max-width: 1200px;
-  margin: 0 auto;
+.faq-container {
   padding: 40px 24px;
-  position: relative;
 }
 
 .faq-title {
+  font-size: 2em;
   color: var(--primary-color);
   text-align: center;
   margin-bottom: 24px;
@@ -21,7 +19,6 @@
   padding: 16px;
   cursor: pointer;
   list-style: none;
-  overflow: auto;
   transition: background-color 0.2s;
 }
 
@@ -44,31 +41,45 @@
   top: 50%;
   right: 16px;
   transform: translateY(-50%);
+  font-size: 1.2em;
   transition: transform 0.2s;
 }
 
 .faq-item[open] summary::after {
-  content: '-';
+  content: '−';
 }
 
 .faq-item .faq-item-body {
   padding: 16px;
+  border-top: 1px solid #dadada;
   background-color: var(--background-color);
 }
 
-.faq-view-more {
+.faq-container picture {
   display: block;
-  margin: 24px auto;
+  margin: 0 auto 24px;
+  max-width: 100%;
+}
+
+.faq-container img {
+  width: 100%;
+  height: auto;
+}
+
+.faq-container .view-more {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.faq-container .view-more p {
+  display: inline-block;
   padding: 12px 24px;
   background-color: var(--primary-color);
-  color: #fff;
-  border: none;
+  color: var(--background-color);
   cursor: pointer;
-  text-align: center;
-  font-size: 16px;
   transition: background-color 0.2s;
 }
 
-.faq-view-more:hover {
+.faq-container .view-more p:hover {
   background-color: var(--primary-color-dark);
 }
