@@ -1,31 +1,38 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-  // Add the hero styles to the FAQ block
-  const heroWrapper = document.createElement('div');
-  heroWrapper.className = 'faq-hero-wrapper';
-  
-  const heroContainer = document.createElement('div');
-  heroContainer.className = 'faq-hero-container';
-  
-  heroWrapper.appendChild(heroContainer);
+  // Add a class to the block for styling
+  block.classList.add('faq-container');
 
-  const header = block.querySelector('h2');
-  if (header) {
-    heroContainer.appendChild(header);
+  // Decorate the title
+  const title = block.querySelector('h2');
+  if (title) {
+    title.classList.add('faq-title');
   }
 
-  const picture = block.querySelector('picture');
-  if (picture) {
-    heroContainer.appendChild(picture);
+  // Decorate the image
+  const imageContainer = block.querySelector('picture');
+  if (imageContainer) {
+    const imgWrapper = document.createElement('div');
+    imgWrapper.className = 'faq-image-wrapper';
+    moveInstrumentation(imageContainer.parentElement, imgWrapper);
+    imgWrapper.appendChild(imageContainer);
+    imageContainer.parentElement.replaceWith(imgWrapper);
   }
 
-  block.prepend(heroWrapper);
+  // Decorate the "View More Questions" button
+  const viewMore = block.querySelector('div > div > p');
+  if (viewMore) {
+    const button = document.createElement('button');
+    button.className = 'faq-view-more';
+    button.textContent = viewMore.textContent;
+    moveInstrumentation(viewMore.parentElement, button);
+    viewMore.parentElement.replaceWith(button);
+  }
 
-  // Convert the FAQ items into an accordion
+  // Decorate the accordion items
   [...block.children].forEach((row, index) => {
-    if (!row.querySelector('h2') && !row.querySelector('picture') && index>3) {
-      // Decorate accordion item label
+    if (index > 2) { // Skip the first three rows (title, image, and button)
       const label = row.children[0];
       const summary = document.createElement('summary');
       summary.className = 'faq-item-label';
@@ -33,15 +40,11 @@ export default function decorate(block) {
         summary.append(...label.childNodes);
       }
 
-      // Decorate accordion item body
       const body = row.children[1];
       body.className = 'faq-item-body';
 
-      // Decorate accordion item
       const details = document.createElement('details');
       details.className = 'faq-item';
-
-      // Important for authoring in Universal editor
       moveInstrumentation(row, details);
       details.append(summary, body);
       row.replaceWith(details);
