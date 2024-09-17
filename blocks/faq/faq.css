@@ -1,27 +1,14 @@
+.faq-block {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  position: relative;
+}
+
 .faq-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #3F51B5;
-  margin-bottom: 16px;
-}
-
-.faq-view-more {
+  color: var(--primary-color);
   text-align: center;
-  margin: 20px 0;
-}
-
-.faq-view-more button {
-  background-color: #3F51B5;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 4px;
-}
-
-.faq-view-more button:hover {
-  background-color: #303F9F;
+  margin-bottom: 24px;
 }
 
 .faq-item {
@@ -29,35 +16,59 @@
   margin-bottom: 16px;
 }
 
-.faq-question {
+.faq-item summary {
   position: relative;
   padding: 16px;
   cursor: pointer;
   list-style: none;
+  overflow: auto;
   transition: background-color 0.2s;
-  font-weight: bold;
-  background-color: #f9f9f9;
 }
 
-.faq-item[open] .faq-question {
-  background-color: #e9e9e9;
+.faq-item[open] summary {
+  background-color: var(--light-color);
 }
 
-.faq-question::after {
+.faq-item summary:focus,
+.faq-item summary:hover {
+  background-color: var(--light-color);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
   content: '+';
   position: absolute;
   top: 50%;
   right: 16px;
   transform: translateY(-50%);
-  font-size: 18px;
   transition: transform 0.2s;
 }
 
-.faq-item[open] .faq-question::after {
+.faq-item[open] summary::after {
   content: '-';
 }
 
-.faq-answer {
+.faq-item .faq-item-body {
   padding: 16px;
-  border-top: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.faq-view-more {
+  display: block;
+  margin: 24px auto;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.faq-view-more:hover {
+  background-color: var(--primary-color-dark);
 }
