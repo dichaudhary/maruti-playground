@@ -11,7 +11,7 @@ export default function decorate(block) {
   }
 
   // Decorate the image
-  const imageContainer = block.querySelector('picture');
+  const imageContainer = block.children[1]
   if (imageContainer) {
     const imgWrapper = document.createElement('div');
     imgWrapper.className = 'faq-image-wrapper';
