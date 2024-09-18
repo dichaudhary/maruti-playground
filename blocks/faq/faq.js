@@ -1,45 +1,28 @@
-import { moveInstrumentation } from '../../scripts/scripts.js';
-
 export default function decorate(block) {
-  // Add FAQ title styling
-  const title = block.querySelector('h2');
-  if (title) {
-    title.className = 'faq-title';
-  }
+  // Add a class to the block for styling
+  block.classList.add('faq-block');
 
-  // Process each FAQ item
-  [...block.children].forEach((row, index) => {
-    if (index > 2) {
+  // Iterate over each child of the block
+  [...block.children].forEach((row) => {
+    // Check if the row contains a question and answer
+    if (row.children.length === 2) {
+      // Create the summary element for the question
       const question = row.children[0];
-      const answer = row.children[1];
-  
-      // Create summary element for the question
       const summary = document.createElement('summary');
-      summary.className = 'faq-item-label';
-      if (question.childElementCount) {
-        summary.append(...question.childNodes);
-      } else {
-        summary.textContent = question.textContent;
-      }
-  
-      // Create details element for the FAQ item
+      summary.className = 'faq-item-question';
+      summary.append(...question.childNodes);
+
+      // Create the body element for the answer
+      const answer = row.children[1];
+      answer.className = 'faq-item-answer';
+
+      // Create the details element to wrap the question and answer
       const details = document.createElement('details');
       details.className = 'faq-item';
-  
-      // Move instrumentation
-      moveInstrumentation(row, details);
-  
-      // Append summary and answer to details
       details.append(summary, answer);
+
+      // Replace the original row with the new details element
       row.replaceWith(details);
     }
   });
-
-  // Add the "View More Questions" button
-  const viewMoreRow = document.createElement('div');
-  viewMoreRow.className = 'faq-view-more';
-  const viewMoreButton = document.createElement('button');
-  viewMoreButton.textContent = 'VIEW MORE QUESTIONS';
-  viewMoreRow.append(viewMoreButton);
-  block.append(viewMoreRow);
 }
