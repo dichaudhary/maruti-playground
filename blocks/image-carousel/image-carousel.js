@@ -1,4 +1,4 @@
-import { mergeImagesForArtDirection } from '../../commons/scripts/scripts.js';
+import { mergeImagesForArtDirection } from '../../scripts/scripts.js';
 
 function startCarousel(carousel, imageContainer, totalImages) {
   const intervalTime = 2000; // Time in milliseconds
