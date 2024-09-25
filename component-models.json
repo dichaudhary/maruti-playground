@@ -422,5 +422,65 @@
         ]
       }
     ]
+  },
+  {
+    "id": "faq-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "question",
+        "value": "",
+        "label": "Question"
+      },
+      {
+        "component": "richtext",
+        "name": "answer",
+        "value": "",
+        "label": "Answer",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "faq",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "faq_title",
+        "value": "",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "faq_titleType",
+        "value": "h2",
+        "hidden": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "common_image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "common_imageAlt",
+        "value": "Default alt",
+        "label": "Alt Text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctas_submit",
+        "label": "View More Button",
+        "required": true
+      }
+    ]
   }
 ]

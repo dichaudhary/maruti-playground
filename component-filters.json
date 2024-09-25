@@ -33,6 +33,7 @@
       "image-carousel",
       "journey-carousel",
       "image-carousel",
+      "faq",
       "journey-carousel",
       "video"
 
@@ -63,6 +64,12 @@
     "id": "journey-carousel",
     "components": [
       "journey-carousel-item"
+    ]
+  },
+  {
+    "id": "faq",
+    "components": [
+      "faq-item"
     ]
   }
 
