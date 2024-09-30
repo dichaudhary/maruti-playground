@@ -1,25 +1,12 @@
 .faq {
-  font-family: Arial, sans-serif;
+  border: 1px solid #dadada;
+  padding: 16px;
 }
 
 .faq-title {
-  color: #3a3a3a;
   font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.faq-view-more {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.faq-view-more-text {
-  color: #ffffff;
-  background-color: #007bff;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: inline-block;
+  color: #3a3a3a;
+  margin-bottom: 24px;
 }
 
 .faq-item {
@@ -60,11 +47,28 @@
 }
 
 .faq-item[open] summary::after {
-  content: '-';
+  content: '−';
 }
 
 .faq-item .faq-item-body {
   padding: 16px;
   border-top: 1px solid #dadada;
   background-color: #ffffff;
+}
+
+.faq-view-more {
+  display: block;
+  margin: 24px auto;
+  padding: 12px 24px;
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.faq-view-more:hover {
+  background-color: #004494;
 }
