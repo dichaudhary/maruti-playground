@@ -1,11 +1,25 @@
-.faq-block {
+.faq {
   font-family: Arial, sans-serif;
 }
 
 .faq-title {
+  color: #3a3a3a;
   font-size: 24px;
-  color: #333;
   margin-bottom: 16px;
+}
+
+.faq-view-more {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.faq-view-more-text {
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
 }
 
 .faq-item {
@@ -14,48 +28,43 @@
 }
 
 .faq-item summary {
+  position: relative;
   padding: 16px;
   cursor: pointer;
-  background-color: #f9f9f9;
   list-style: none;
-  position: relative;
+  overflow: auto;
   transition: background-color 0.2s;
+}
+
+.faq-item[open] summary {
+  background-color: #f0f0f0;
+}
+
+.faq-item summary:focus,
+.faq-item summary:hover {
+  background-color: #f0f0f0;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
 }
 
 .faq-item summary::after {
   content: '+';
   position: absolute;
-  right: 16px;
   top: 50%;
+  right: 16px;
   transform: translateY(-50%);
   font-size: 18px;
+  transition: transform 0.2s;
 }
 
 .faq-item[open] summary::after {
-  content: '−';
-}
-
-.faq-item[open] summary {
-  background-color: #e9e9e9;
+  content: '-';
 }
 
 .faq-item .faq-item-body {
   padding: 16px;
-  background-color: #fff;
-}
-
-.faq-view-more {
-  display: block;
-  margin: 24px auto;
-  padding: 12px 24px;
-  background-color: #0056b3;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-}
-
-.faq-view-more:hover {
-  background-color: #004494;
+  border-top: 1px solid #dadada;
+  background-color: #ffffff;
 }
