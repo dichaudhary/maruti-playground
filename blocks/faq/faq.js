@@ -12,7 +12,7 @@ export default function decorate(block) {
 
   // Decorate each FAQ item
   [...block.children].forEach((row, index) => {
-    if (index > 1) {
+    if (index > 0) {
       const question = row.children[0];
       const answer = row.children[1];
 
