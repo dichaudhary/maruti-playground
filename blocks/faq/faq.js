@@ -10,33 +10,37 @@ export default function decorate(block) {
     title.classList.add('faq-title');
   }
 
-  // Decorate the "View More Questions" link
-  const viewMore = block.querySelector('div > div > p');
-  if (viewMore) {
-    const viewMoreContainer = viewMore.parentElement;
-    viewMoreContainer.classList.add('faq-view-more');
-    viewMore.classList.add('faq-view-more-text');
-  }
-
-  // Decorate each FAQ item
+  // Decorate the questions and answers
   [...block.children].forEach((row, index) => {
-    if (index > 0) { // Skip the first three divs (title, image, view more)
+    if (index > 0) {
       const question = row.children[0];
       const answer = row.children[1];
 
-      // Create summary and details elements
-      const summary = document.createElement('summary');
-      summary.className = 'faq-item-label';
-      if (question.childElementCount) {
+      if (question && answer) {
+        // Create summary and details elements
+        const summary = document.createElement('summary');
+        summary.className = 'faq-item-label';
         summary.append(...question.childNodes);
+
+        const details = document.createElement('details');
+        details.className = 'faq-item';
+
+        // Move instrumentation for authoring
+        moveInstrumentation(row, details);
+
+        // Append summary and answer to details
+        details.append(summary, answer);
+        row.replaceWith(details);
       }
-
-      const details = document.createElement('details');
-      details.className = 'faq-item';
-      moveInstrumentation(row, details);
-      details.append(summary, answer);
-
-      row.replaceWith(details);
     }
   });
+
+  // Decorate the "View More Questions" button
+  const viewMore = block.querySelector('div > div > p');
+  if (viewMore) {
+    const button = document.createElement('button');
+    button.className = 'faq-view-more';
+    button.textContent = viewMore.textContent;
+    viewMore.replaceWith(button);
+  }
 }
