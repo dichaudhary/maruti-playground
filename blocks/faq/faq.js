@@ -20,7 +20,7 @@ export default function decorate(block) {
 
   // Decorate each FAQ item
   [...block.children].forEach((row, index) => {
-    if (index > 2) { // Skip the first three divs (title, image, view more)
+    if (index > 1) { // Skip the first three divs (title, image, view more)
       const question = row.children[0];
       const answer = row.children[1];
 
