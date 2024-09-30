@@ -2,7 +2,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   // Set the block class
-  block.classList.add('faq-block');
+  block.classList.add('faq');
 
   // Decorate the title
   const title = block.querySelector('h2');
@@ -10,35 +10,33 @@ export default function decorate(block) {
     title.classList.add('faq-title');
   }
 
+  // Decorate the "View More Questions" link
+  const viewMore = block.querySelector('div > div > p');
+  if (viewMore) {
+    const viewMoreContainer = viewMore.parentElement;
+    viewMoreContainer.classList.add('faq-view-more');
+    viewMore.classList.add('faq-view-more-text');
+  }
+
   // Decorate each FAQ item
   [...block.children].forEach((row, index) => {
-    if (index > 0) {
+    if (index > 2) { // Skip the first three divs (title, image, view more)
       const question = row.children[0];
       const answer = row.children[1];
 
-      if (question && answer) {
-        // Create summary and details elements
-        const summary = document.createElement('summary');
-        summary.className = 'faq-item-question';
+      // Create summary and details elements
+      const summary = document.createElement('summary');
+      summary.className = 'faq-item-label';
+      if (question.childElementCount) {
         summary.append(...question.childNodes);
-
-        const details = document.createElement('details');
-        details.className = 'faq-item';
-        details.append(summary, answer);
-
-        // Add the decorated details to the block
-        moveInstrumentation(row, details);
-        row.replaceWith(details);
       }
+
+      const details = document.createElement('details');
+      details.className = 'faq-item';
+      moveInstrumentation(row, details);
+      details.append(summary, answer);
+
+      row.replaceWith(details);
     }
   });
-
-  // Decorate the "View More Questions" button
-  const viewMore = block.querySelector('div > div > p');
-  if (viewMore) {
-    const button = document.createElement('button');
-    button.className = 'faq-view-more';
-    button.textContent = viewMore.textContent;
-    viewMore.replaceWith(button);
-  }
 }
