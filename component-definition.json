@@ -247,7 +247,7 @@
                   "model": "faq",
                   "classes": "dynamic-block",
                   "filter": "faq",
-                  "faq_title": "Frequently asked questions",
+                  "faq_title": "FAQ Block",
                   "faq_titleType": "h2"
                 }
               }
@@ -264,8 +264,8 @@
                 "template": {
                   "name": "FAQ Item",
                   "model": "faq-item",
-                  "question": "Lorem Ipsum",
-                  "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet"
+                  "item-key": "Question",
+                  "item-value": "Answer"
                 }
               }
             }
